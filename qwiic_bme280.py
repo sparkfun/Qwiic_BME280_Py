@@ -61,7 +61,7 @@ _validChipIDs = [0x58, 0x60]
 # device is encapsulated by this class. The device class should be the only value exported 
 # from this module.
 
-class QwiicBME280(object):
+class QwiicBme280(object):
 
 	# Constructor
 	device_name = _DEFAULT_NAME

@@ -34,7 +34,7 @@ import sys
 def runExample():
 
 	print("\nSparkFun BME280 Sensor  Example 5\n")
-	mySensor = qwiic_bme280.QwiicBME280()
+	mySensor = qwiic_bme280.QwiicBme280()
 
 	if mySensor.isConnected() == False:
 		print("The Qwiic BME280 device isn't connected to the system. Please check your connection", \
