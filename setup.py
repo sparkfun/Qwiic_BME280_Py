@@ -39,7 +39,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # http://packaging.python.org/en/latest/tutorial.html#version
-    version='0.0.7',
+    version='0.0.9',
 
     description='SparkFun Electronics qwiic BME280',
     long_description=long_description,
@@ -54,7 +54,7 @@ setup(
     install_requires=['sparkfun_qwiic_i2c'],
 
     # Choose your license
-    license='GPLv2',
+    license='MIT',
 
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
