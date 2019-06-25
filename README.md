@@ -1,5 +1,5 @@
 # Qwiic_BME280_Py
-Python module for the qwiic bme280 sensor
+Python module for the qwiic bme280 sensor, which is part of the [SparkFun Qwiic Environmental Combo Breakout](https://www.sparkfun.com/products/14348)
 
 ## Dependencies 
 This driver package depends on the qwii I2C driver: 
