@@ -44,13 +44,13 @@ def runExample():
 	mySensor.begin()
 
 	while True:
-		print("Humidity:\t%.3f" % mySensor.readFloatHumidity())
+		print("Humidity:\t%.3f" % mySensor.humidity)
 
-		print("Pressure:\t%.3f" % mySensor.readFloatPressure())		
+		print("Pressure:\t%.3f" % mySensor.pressure)	
 
-		print("Altitude:\t%.3f" % mySensor.readFloatAltitudeFeet())
+		print("Altitude:\t%.3f" % mySensor.altitude_feet)
 
-		print("Temperature:\t%.2f" % mySensor.readTempF())		
+		print("Temperature:\t%.2f" % mySensor.temperature_fahrenheit)		
 
 		print("")
 		

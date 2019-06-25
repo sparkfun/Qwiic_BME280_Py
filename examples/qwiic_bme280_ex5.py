@@ -79,16 +79,16 @@ def runExample():
 	print("dig_H4, int16: %d" % mySensor.calibration["dig_H5"])
 	print("dig_H6, int8: %d" % mySensor.calibration["dig_H6"])
 	while True:
-		print("Humidity:\t%.3f" % mySensor.readFloatHumidity())
 
-		print("Pressure:\t%.3f" % mySensor.readFloatPressure())		
+		print("Humidity:\t%.3f" % mySensor.humidity)
 
-		print("Altitude:\t%.3f" % mySensor.readFloatAltitudeFeet())
+		print("Pressure:\t%.3f" % mySensor.pressure)	
 
-		print("Temperature:\t%.2f\n" % mySensor.readTempF())		
+		print("Altitude:\t%.3f" % mySensor.altitude_feet)
+
+		print("Temperature:\t%.2f\n" % mySensor.temperature_fahrenheit)
 
 		time.sleep(1)
-
 
 if __name__ == '__main__':
 	try:

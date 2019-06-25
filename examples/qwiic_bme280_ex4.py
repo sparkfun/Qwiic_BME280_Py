@@ -43,24 +43,25 @@ def runExample():
 
 	mySensor.begin()
 
-	mySensor.setFilter(1); # 0 to 4 is valid. Filter coefficient. See 3.4.4
-	mySensor.setStandbyTime(0); # 0 to 7 valid. Time between readings. See table 27.
+	# setup the sensor
+	mySensor.filter = 1  		# 0 to 4 is valid. Filter coefficient. See 3.4.4
+	mySensor.standby_time = 0 	# 0 to 7 valid. Time between readings. See table 27.
 	
-	mySensor.setTempOverSample(1); # 0 to 16 are valid. 0 disables temp sensing. See table 24.
-	mySensor.setPressureOverSample(1); # 0 to 16 are valid. 0 disables pressure sensing. See table 23.
-	mySensor.setHumidityOverSample(1); # 0 to 16 are valid. 0 disables humidity sensing. See table 19.
-	mySensor.setMode(mySensor.MODE_NORMAL); # MODE_SLEEP, MODE_FORCED, MODE_NORMAL is valid. See 3.3
+	mySensor.over_sample = 1			# 0 to 16 are valid. 0 disables temp sensing. See table 24.
+	mySensor.pressure_oversample = 1	# 0 to 16 are valid. 0 disables pressure sensing. See table 23.
+	mySensor.humidity_oversample = 1	# 0 to 16 are valid. 0 disables humidity sensing. See table 19.
+	mySensor.mode = mySensor.MODE_NORMAL # MODE_SLEEP, MODE_FORCED, MODE_NORMAL is valid. See 3.3
 
 	while True:
-		print("Humidity:\t%.3f" % mySensor.readFloatHumidity())
+		print("Humidity:\t%.3f" % mySensor.humidity)
 
-		print("Pressure:\t%.3f" % mySensor.readFloatPressure())		
+		print("Pressure:\t%.3f" % mySensor.pressure)	
 
-		print("Altitude:\t%.3f" % mySensor.readFloatAltitudeFeet())
+		print("Altitude:\t%.3f" % mySensor.altitude_feet)
 
-		print("Temperature:\t%.2f" % mySensor.readTempF())		
+		print("Temperature:\t%.2f\n" % mySensor.temperature_fahrenheit)
 
-		time.sleep(.4)
+		time.sleep(1)
 
 
 if __name__ == '__main__':
