@@ -1,16 +1,19 @@
 #-----------------------------------------------------------------------------
-# exampledevice.py
+# qwiic_bme280.py
 #
-# Simple Example device for qwiic
+# Python library for the SparkFun qwiic BME280 sensor.
+#
+# This sensor is available on the SparkFun Environmental Combo Breakout board.
+#	https://www.sparkfun.com/products/14348
+#
 #------------------------------------------------------------------------
 #
 # Written by  SparkFun Electronics, May 2019
 # 
 # This python library supports the SparkFun Electroncis qwiic 
-# qwiic sensor/board ecosystem on a Raspberry Pi (and compatable) single
-# board computers. 
+# qwiic sensor/board ecosystem 
 #
-# More information on qwiic is at https:# www.sparkfun.com/qwiic
+# More information on qwiic is at https:// www.sparkfun.com/qwiic
 #
 # Do you like this library? Help support SparkFun. Buy a board!
 #
@@ -23,18 +26,15 @@
 # along with this program.  If not, see <http:# www.gnu.org/licenses/>.
 #-----------------------------------------------------------------------------
 
-	
 import math
 import qwiic_i2c
 
 # Define the device name and I2C addresses. These are set in the class defintion 
 # as class variables, making them avilable without having to create a class instance.
+# This allows higher level logic to rapidly create a index of qwiic devices at 
+# runtine
 #
-# The base class and associated support functions use these class varables to 
-# allow users to easily identify connected devices as well as provide basic 
-# device services.
-#
-# The name of this device - note this is private 
+# The name of this device 
 _DEFAULT_NAME = "Qwiic BME280"
 
 # Some devices have multiple availabel addresses - this is a list of these addresses.
@@ -43,7 +43,7 @@ _DEFAULT_NAME = "Qwiic BME280"
 _AVAILABLE_I2C_ADDRESS = [0x77, 0x76]
 
 # Default Setting Values
-_settings = { "runMode" : 3, 		\
+_settings = {   "runMode" : 3, 			\
 				"tStandby" 	: 0, 		\
 				"filter" 	: 0, 		\
 				"tempOverSample"  : 1, 	\
@@ -54,9 +54,6 @@ _settings = { "runMode" : 3, 		\
 # define our valid chip IDs
 _validChipIDs = [0x58, 0x60]
 
-
-
-
 # define the class that encapsulates the device being created. All information associated with this
 # device is encapsulated by this class. The device class should be the only value exported 
 # from this module.
@@ -64,8 +61,8 @@ _validChipIDs = [0x58, 0x60]
 class QwiicBme280(object):
 
 	# Constructor
-	device_name = _DEFAULT_NAME
-	available_addresses = _AVAILABLE_I2C_ADDRESS
+	device_name			= _DEFAULT_NAME
+	available_addresses	= _AVAILABLE_I2C_ADDRESS
 
 	# mode flags for the device - user exposed
 	MODE_SLEEP = 0b00
@@ -120,17 +117,23 @@ class QwiicBme280(object):
 	BME280_HUMIDITY_MSB_REG =		0xFD # Humidity MSB
 	BME280_HUMIDITY_LSB_REG =		0xFE # Humidity LSB
 
-	def __init__(self, address=None):
+	# Constructor
+	def __init__(self, address=None, i2c_driver=None):
 
 
+		# Did the user specify an I2C address?
 		self.address = address if address != None else self.available_addresses[0]
 
-		# load the I2C driver
+		# load the I2C driver if one isn't provided
 
-		self._i2c = qwiic_i2c.getI2CDriver()
-		if self._i2c == None:
-			print("Unable to load I2C driver for this platform.")
-			return
+		if i2c_driver == None:
+			self._i2c = qwiic_i2c.getI2CDriver()
+			if self._i2c == None:
+				print("Unable to load I2C driver for this platform.")
+				return
+		else:
+			self._i2c = i2c_driver
+
 
 		# create a dictionary to stash our calibration data for the sensor
 		self.calibration={}
@@ -139,9 +142,18 @@ class QwiicBme280(object):
 
 		self._referencePressure = 101325.0
 
+	# ----------------------------------
+	# isConnected()
+	#
+	# Is an actual board connected to our system?
+
 	def isConnected(self):
 		return qwiic_i2c.isDeviceConnected(self.address)
 
+	# ----------------------------------
+	# begin()
+	#
+	# Initialize the system/validate the board. 
 	def begin(self):
 
 		# are we who we need to be?
@@ -185,6 +197,9 @@ class QwiicBme280(object):
 	
 		return self._i2c.readByte(self.address, self.BME280_CHIP_ID_REG)  # Should return 0x60
 
+	#----------------------------------------------------------------
+	# Mode of the sensor 
+
 	def setMode(self, mode):
 
 		if mode > 0b11:
@@ -201,6 +216,10 @@ class QwiicBme280(object):
 		controlData = self._i2c.readByte(self.address, self.BME280_CTRL_MEAS_REG)
 		return controlData & 0b00000011
 
+	# Make the mode a property of this object
+	mode = property(getMode, setMode)
+
+	#----------------------------------------------------------------
 	# Set the standby bits in the config register
 	# tStandby can be:
 	#   0, 0.5ms
@@ -221,6 +240,11 @@ class QwiicBme280(object):
 		controlData |= (timeSetting << 5) # Align with bits 7/6/5
 		self._i2c.writeByte(self.address, self.BME280_CONFIG_REG, controlData)
 
+	# Make standby time a property
+	standby_time = property()
+	standby_time = standby_time.setter(setStandbyTime)
+
+	#---------------------------------------------------------------- 
 	# Set the filter bits in the config register
 	# filter can be off or number of FIR coefficients to use:
 	#   0, filter off
@@ -238,7 +262,10 @@ class QwiicBme280(object):
 		controlData |= (filterSetting << 2) # Align with bits 4/3/2
 		self._i2c.writeByte(self.address, self.BME280_CONFIG_REG, controlData)
 
+	filter = property()
+	filter = filter.setter(setFilter)
 
+	#----------------------------------------------------------------	
 	# Set the temperature oversample value
 	# 0 turns off temp sensing
 	# 1 to 16 are valid over sampling values
@@ -258,6 +285,8 @@ class QwiicBme280(object):
 		
 		self.setMode(originalMode) # Return to the original user's choice
 
+	tempature_oversample = property()
+	tempature_oversample = tempature_oversample.setter(setTempOverSample)
 
 	# Set the pressure oversample value
 	# 0 turns off pressure sensing
@@ -278,6 +307,10 @@ class QwiicBme280(object):
 		
 		self.setMode(originalMode) # Return to the original user's choice
 
+	pressure_oversample = property()
+	pressure_oversample = pressure_oversample.setter(setPressureOverSample)
+
+	#----------------------------------------------------------------	
 	# Set the humidity oversample value
 	# 0 turns off humidity sensing
 	# 1 to 16 are valid over sampling values
@@ -290,13 +323,17 @@ class QwiicBme280(object):
 		self.setMode(self.MODE_SLEEP) # Config will only be writeable in sleep mode, so first go to sleep mode
 	
 		# Set the osrs_h bits (2, 1, 0) to overSampleAmount
-		controlData = self._i2c._i2c.readByte(self.address, self.BME280_CTRL_HUMIDITY_REG)
+		controlData = self._i2c.readByte(self.address, self.BME280_CTRL_HUMIDITY_REG)
 		controlData &= (~( (1<<2) | (1<<1) | (1<<0) )) & 0xFF # Clear bits 2/1/0
 		controlData |= overSampleAmount << 0 # Align overSampleAmount to bits 2/1/0
 		self._i2c.writeByte(self.address, self.BME280_CTRL_HUMIDITY_REG, controlData)
 	
 		self.setMode(originalMode) # Return to the original user's choice
 
+	humidity_oversample = property()
+	humidity_oversample = humidity_oversample.setter(setHumidityOverSample)
+
+	#----------------------------------------------------------------	
 	# Validates an over sample value
 	# Allowed values are 0 to 16
 	# These are used in the humidty, pressure, and temp oversample functions
@@ -350,7 +387,9 @@ class QwiicBme280(object):
 		
 		return p_acc / 256.0
 		
+	pressure = property(readFloatPressure)
 
+	#----------------------------------------------------------------	
 	# Sets the internal variable _referencePressure so the 
 	def setReferencePressure(self, refPressure):
 
@@ -360,16 +399,24 @@ class QwiicBme280(object):
 	def getReferencePressure(self):
 		return self._referencePressure
 	
+	reference_pressure = property(getReferencePressure, setReferencePressure)
+
+	#----------------------------------------------------------------	
 	def readFloatAltitudeMeters( self ):
 
 		# heightOutput = ((float)-45846.2)*(pow(((float)readFloatPressure()/(float)_referencePressure), 0.190263) - (float)1);
 
 		return (-44330.77)*(math.pow((self.readFloatPressure()/self._referencePressure), 0.190263) - 1.0) # Corrected, see issue 30
 	
+	altitude_meters = property(readFloatAltitudeMeters)
+
+	#----------------------------------------------------------------
 	def readFloatAltitudeFeet( self ):
 	
 		return self.readFloatAltitudeMeters() * 3.28084
 	
+	altitude_feet = property(readFloatAltitudeFeet)
+
 
 	# ****************************************************************************# 
 	# 
@@ -394,6 +441,8 @@ class QwiicBme280(object):
 
 	
 		return (var1>>12) / 1024.0
+
+	humidity = property(readFloatHumidity)
 
 	# ****************************************************************************# 
 	# 
@@ -421,11 +470,15 @@ class QwiicBme280(object):
 	
 		return output / 100 + _settings["tempCorrection"]
 		
-	
+	temperature_celsius = property(readTempC)
+
+	#----------------------------------------------------------------	
 	def readTempF( self ):
 
 		output = self.readTempC()
 		return (output * 9) / 5 + 32
+
+	temperature_fahrenheit = property(readTempF)
 
 	# ****************************************************************************# 
 	# 
@@ -452,8 +505,11 @@ class QwiicBme280(object):
 		T = math.log(VP/0.61078)   #  temp var
 		return (241.88 * T) / (17.558 - T)
 	
+	dewpoint_celsius = property(dewPointC)
+
+	#----------------------------------------------------------------	
 	#  Returns Dew point in DegF
 	def dewPointF(self):
 		return self.dewPointC() * 1.8 + 32 # Convert C to F
 
-	
+	dewpoint_fahrenheit = property(dewPointF)
