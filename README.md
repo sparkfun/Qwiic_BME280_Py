@@ -5,7 +5,10 @@
 
 Python module for the qwiic bme280 sensor, which is part of the [SparkFun Qwiic Environmental Combo Breakout](https://www.sparkfun.com/products/14348)
 
-![SparkFun Qwiic Environmental Combo Breakout](https://cdn.sparkfun.com//assets/parts/1/2/3/2/9/14348-01.jpg)
+<p align="center">
+   <img src="https://cdn.sparkfun.com//assets/parts/1/2/3/2/9/14348-01.jpg"  width=400 alt="SparkFun Qwiic Environmental Combo Breakout">
+</p>
+
 
 This python package is a port of the existing [SparkFun BME280 Arduino Library](https://github.com/sparkfun/SparkFun_BME280_Arduino_Library)
 
