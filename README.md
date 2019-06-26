@@ -1,6 +1,7 @@
 # Qwiic_BME280_Py
 <p align="center">
-   <img src="https://cdn.sparkfun.com/assets/custom_pages/2/7/2/qwiic-logo-registered.jpg"  width=200>
+   <img src="https://cdn.sparkfun.com/assets/custom_pages/2/7/2/qwiic-logo-registered.jpg"  width=200>  
+   <img src="https://www.python.org/static/community_logos/python-logo-master-v3-TM.png"  width=240>
 </p>
 
 Python module for the qwiic bme280 sensor, which is part of the [SparkFun Qwiic Environmental Combo Breakout](https://www.sparkfun.com/products/14348)
