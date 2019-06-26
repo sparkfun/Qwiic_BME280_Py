@@ -14,7 +14,7 @@ Python module for the qwiic bme280 sensor, which is part of the [SparkFun Qwiic 
 This python package is a port of the existing [SparkFun BME280 Arduino Library](https://github.com/sparkfun/SparkFun_BME280_Arduino_Library)
 
 ## Dependencies 
-This driver package depends on the qwii I2C driver: 
+This driver package depends on the qwiic I2C driver: 
 [Qwiic_I2C_Py](https://github.com/sparkfun/Qwiic_I2C_Py)
 
   
