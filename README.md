@@ -1,57 +1,74 @@
-# Qwiic_BME280_Py
+Qwiic_BME280_Py
+==============
+
 <p align="center">
    <img src="https://cdn.sparkfun.com/assets/custom_pages/2/7/2/qwiic-logo-registered.jpg"  width=200>  
-   <img src="https://www.python.org/static/community_logos/python-logo-master-v3-TM.png"  width=240>
+   <img src="https://www.python.org/static/community_logos/python-logo-master-v3-TM.png"  width=240>   
 </p>
+<p align="center">
+	<a href="https://test.pypi.org/project/sparkfun_qwiic_bme280/" alt="Package">
+		<img src="https://img.shields.io/pypi/pyversions/sparkfun_qwiic_bme280.svg" /></a>
+	<a href="https://github.com/sparkfun/Qwiic_BME280_Py/issues" alt="Issues">
+		<img src="https://img.shields.io/github/issues/sparkfun/Qwiic_BME280_Py/issues.svg" /></a>
+	<a href="https://github.com/sparkfun/Qwiic_BME280_Py/blob/master/LICENSE" alt="License">
+		<img src="https://img.shields.io/badge/license-MIT-blue.svg" /></a>
+	<a href="https://twitter.com/intent/follow?screen_name=sparkfun">
+        	<img src="https://img.shields.io/twitter/follow/sparkfun.svg?style=social&logo=twitter"
+           	 alt="follow on Twitter"></a>
+	
+</p>
+
+<img src="https://cdn.sparkfun.com//assets/parts/1/2/3/2/9/14348-01.jpg"  align="right" width=300 alt="SparkFun Qwiic Environmental Combo Breakout">
 
 Python module for the qwiic bme280 sensor, which is part of the [SparkFun Qwiic Environmental Combo Breakout](https://www.sparkfun.com/products/14348)
 
-<p align="center">
-   <img src="https://cdn.sparkfun.com//assets/parts/1/2/3/2/9/14348-01.jpg"  width=400 alt="SparkFun Qwiic Environmental Combo Breakout">
-</p>
-
-
 This python package is a port of the existing [SparkFun BME280 Arduino Library](https://github.com/sparkfun/SparkFun_BME280_Arduino_Library)
 
-## Dependencies 
+This package can be used in conjunction with the overall [SparkFun qwiic Python Package](https://github.com/sparkfun/Qwiic_Py)
+
+New to qwiic? Take a look at the entire [SparkFun qwiic ecosystem](https://www.sparkfun.com/qwiic).
+
+Dependencies 
+---------------
 This driver package depends on the qwiic I2C driver: 
 [Qwiic_I2C_Py](https://github.com/sparkfun/Qwiic_I2C_Py)
 
-  
-## Installation
+Installation
+-------------
 
 ### PyPi Installation
 On systems that support PyPi installation via pip, this library is installed using the following commands
 
 For all users (note: the user must have sudo privileges):
-```
-  sudo pip install sparkfun_qwiic_bme280
+```sh
+sudo pip install sparkfun_qwiic_bme280
 ```
 For the current user:
 
-```
-  pip install sparkfun_qwiic_bme280
+```sh
+pip install sparkfun_qwiic_bme280
 ```
 
 ### Local Installation
 To install, make sure the setuptools package is installed on the system.
 
 Direct installation at the command line:
-```
-  $ python setup.py install
+```sh
+python setup.py install
 ```
 
 To build a package for use with pip:
-```
-  $ python setup.py sdist
+```sh
+python setup.py sdist
  ```
 A package file is built and placed in a subdirectory called dist. This package file can be installed using pip.
-```
-  cd dist
-  pip install sparkfun_qwiic_bme280-<version>.tar.gz
+```sh
+cd dist
+pip install sparkfun_qwiic_bme280-<version>.tar.gz
   
 ```
- ## Example Use
+Example Use
+ ---------------
 See the examples directory for more detailed use examples.
 
 ```python
