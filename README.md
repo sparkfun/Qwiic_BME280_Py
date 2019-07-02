@@ -28,10 +28,21 @@ This package can be used in conjunction with the overall [SparkFun qwiic Python 
 
 New to qwiic? Take a look at the entire [SparkFun qwiic ecosystem](https://www.sparkfun.com/qwiic).
 
+## Contents
+
+* [Dependencies](#dependencies)
+* [Installation](#installation)
+* [Documentation](#documentation)
+* [Example Use](#example-use)
+
 Dependencies 
 ---------------
 This driver package depends on the qwiic I2C driver: 
 [Qwiic_I2C_Py](https://github.com/sparkfun/Qwiic_I2C_Py)
+
+Documentation
+-------------
+The Sparkfun qwiic BME280 module documentation is hosted at [ReadTheDocs](https://qwiic-bme280-py.readthedocs.io/en/latest/?)
 
 Installation
 -------------
