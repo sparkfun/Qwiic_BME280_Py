@@ -52,12 +52,12 @@ On systems that support PyPi installation via pip, this library is installed usi
 
 For all users (note: the user must have sudo privileges):
 ```sh
-sudo pip install sparkfun_qwiic_bme280
+sudo pip install sparkfun-qwiic-bme280
 ```
 For the current user:
 
 ```sh
-pip install sparkfun_qwiic_bme280
+pip install sparkfun-qwiic-bme280
 ```
 
 ### Local Installation
