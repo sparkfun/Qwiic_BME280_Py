@@ -10,6 +10,8 @@ Qwiic_BME280_Py
 		<img src="https://img.shields.io/pypi/pyversions/sparkfun_qwiic_bme280.svg" /></a>
 	<a href="https://github.com/sparkfun/Qwiic_BME280_Py/issues" alt="Issues">
 		<img src="https://img.shields.io/github/issues/sparkfun/Qwiic_BME280_Py.svg" /></a>
+	<a href="https://qwiic-bme280-py.readthedocs.io/en/latest/?" alt="Documentation">
+		<img src="https://readthedocs.org/projects/qwiic-bme280-py/badge/?version=latest&style=flat" /></a>
 	<a href="https://github.com/sparkfun/Qwiic_BME280_Py/blob/master/LICENSE" alt="License">
 		<img src="https://img.shields.io/badge/license-MIT-blue.svg" /></a>
 	<a href="https://twitter.com/intent/follow?screen_name=sparkfun">
