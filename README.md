@@ -9,7 +9,7 @@ Qwiic_BME280_Py
 	<a href="https://test.pypi.org/project/sparkfun_qwiic_bme280/" alt="Package">
 		<img src="https://img.shields.io/pypi/pyversions/sparkfun_qwiic_bme280.svg" /></a>
 	<a href="https://github.com/sparkfun/Qwiic_BME280_Py/issues" alt="Issues">
-		<img src="https://img.shields.io/github/issues/sparkfun/Qwiic_BME280_Py/issues.svg" /></a>
+		<img src="https://img.shields.io/github/issues/sparkfun/Qwiic_BME280_Py.svg" /></a>
 	<a href="https://github.com/sparkfun/Qwiic_BME280_Py/blob/master/LICENSE" alt="License">
 		<img src="https://img.shields.io/badge/license-MIT-blue.svg" /></a>
 	<a href="https://twitter.com/intent/follow?screen_name=sparkfun">
@@ -52,12 +52,12 @@ On systems that support PyPi installation via pip, this library is installed usi
 
 For all users (note: the user must have sudo privileges):
 ```sh
-sudo pip install sparkfun_qwiic_bme280
+sudo pip install sparkfun-qwiic-bme280
 ```
 For the current user:
 
 ```sh
-pip install sparkfun_qwiic_bme280
+pip install sparkfun-qwiic-bme280
 ```
 
 ### Local Installation
