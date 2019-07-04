@@ -6,7 +6,7 @@ Qwiic_BME280_Py
    <img src="https://www.python.org/static/community_logos/python-logo-master-v3-TM.png"  width=240>   
 </p>
 <p align="center">
-	<a href="https://test.pypi.org/project/sparkfun_qwiic_bme280/" alt="Package">
+	<a href="https://pypi.org/project/sparkfun-qwiic-bme280/" alt="Package">
 		<img src="https://img.shields.io/pypi/pyversions/sparkfun_qwiic_bme280.svg" /></a>
 	<a href="https://github.com/sparkfun/Qwiic_BME280_Py/issues" alt="Issues">
 		<img src="https://img.shields.io/github/issues/sparkfun/Qwiic_BME280_Py.svg" /></a>
