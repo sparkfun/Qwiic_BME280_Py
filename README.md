@@ -44,7 +44,7 @@ This driver package depends on the qwiic I2C driver:
 
 Documentation
 -------------
-The Sparkfun qwiic BME280 module documentation is hosted at [ReadTheDocs](https://qwiic-bme280-py.readthedocs.io/en/latest/?)
+The SparkFun qwiic BME280 module documentation is hosted at [ReadTheDocs](https://qwiic-bme280-py.readthedocs.io/en/latest/?)
 
 Installation
 -------------
