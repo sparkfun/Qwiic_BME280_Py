@@ -177,7 +177,7 @@ class QwiicBme280(object):
 		self._referencePressure = 101325.0
 
 	# ----------------------------------
-	# is_Connected()
+	# is_connected()
 	#
 	# Is an actual board connected to our system?
 
