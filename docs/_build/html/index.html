@@ -1,0 +1,370 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Qwiic_BME280_Py &mdash; sparkfun_qwiic_bme280 0.0.9 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="apiref.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> sparkfun_qwiic_bme280
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Qwiic_BME280_Py</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="apiref.html">API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ex1.html">Basic Operation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex4.html">Adjust Sensor Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex5.html">Calibration Values</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Other Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://sparkfun.com">     SparkFun</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.sparkfun.com/products/14348">SparkFun Environmental Combo Breakout CCS811/BME280</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/sparkfun/Qwiic_BME280_Py">     GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.sparkfun.com/qwiic">     SparkFun qwiic</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">sparkfun_qwiic_bme280</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Qwiic_BME280_Py</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="qwiic-bme280-py">
+<h1>Qwiic_BME280_Py<a class="headerlink" href="#qwiic-bme280-py" title="Permalink to this headline">¶</a></h1>
+<p align="center">
+   <img src="https://cdn.sparkfun.com/assets/custom_pages/2/7/2/qwiic-logo-registered.jpg"  width=200>
+   <img src="https://www.python.org/static/community_logos/python-logo-master-v3-TM.png"  width=240>
+</p>
+<p align="center">
+    <a href="https://pypi.org/project/sparkfun-qwiic-bme280/" alt="Package">
+        <img src="https://img.shields.io/pypi/pyversions/sparkfun_qwiic_bme280.svg" /></a>
+    <a href="https://github.com/sparkfun/Qwiic_BME280_Py/issues" alt="Issues">
+        <img src="https://img.shields.io/github/issues/sparkfun/Qwiic_BME280_Py.svg" /></a>
+    <a href="https://qwiic-bme280-py.readthedocs.io/en/latest/?" alt="Documentation">
+        <img src="https://readthedocs.org/projects/qwiic-bme280-py/badge/?version=latest&style=flat" /></a>
+    <a href="https://github.com/sparkfun/Qwiic_BME280_Py/blob/master/LICENSE" alt="License">
+        <img src="https://img.shields.io/badge/license-MIT-blue.svg" /></a>
+    <a href="https://twitter.com/intent/follow?screen_name=sparkfun">
+            <img src="https://img.shields.io/twitter/follow/sparkfun.svg?style=social&logo=twitter"
+             alt="follow on Twitter"></a>
+
+</p><p><span class="raw-html-m2r"><img src="https://cdn.sparkfun.com//assets/parts/1/2/3/2/9/14348-01.jpg"  align="right" width=300 alt="SparkFun Qwiic Environmental Combo Breakout"></span></p>
+<p>Python module for the qwiic bme280 sensor, which is part of the <a class="reference external" href="https://www.sparkfun.com/products/14348">SparkFun Qwiic Environmental Combo Breakout</a></p>
+<p>This python package is a port of the existing <a class="reference external" href="https://github.com/sparkfun/SparkFun_BME280_Arduino_Library">SparkFun BME280 Arduino Library</a></p>
+<p>This package can be used in conjunction with the overall <a class="reference external" href="https://github.com/sparkfun/Qwiic_Py">SparkFun qwiic Python Package</a></p>
+<p>New to qwiic? Take a look at the entire <a class="reference external" href="https://www.sparkfun.com/qwiic">SparkFun qwiic ecosystem</a>.</p>
+<div class="section" id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="#dependencies">Dependencies</a></li>
+<li><a class="reference external" href="#installation">Installation</a></li>
+<li><a class="reference external" href="#documentation">Documentation</a></li>
+<li><a class="reference external" href="#example-use">Example Use</a></li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2>Dependencies<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>This driver package depends on the qwiic I2C driver:
+<a class="reference external" href="https://github.com/sparkfun/Qwiic_I2C_Py">Qwiic_I2C_Py</a></p>
+</div>
+<div class="section" id="id2">
+<h2>Documentation<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>The SparkFun qwiic BME280 module documentation is hosted at <a class="reference external" href="https://qwiic-bme280-py.readthedocs.io/en/latest/?">ReadTheDocs</a></p>
+</div>
+<div class="section" id="id3">
+<h2>Installation<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="pypi-installation">
+<h3>PyPi Installation<a class="headerlink" href="#pypi-installation" title="Permalink to this headline">¶</a></h3>
+<p>This repository is hosted on PyPi as the <a class="reference external" href="https://pypi.org/project/sparkfun-qwiic-bme280/">sparkfun-qwiic-bme280</a> package. On systems that support PyPi installation via pip, this library is installed using the following commands</p>
+<p>For all users (note: the user must have sudo privileges):</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo pip install sparkfun-qwiic-bme280
+</pre></div>
+</div>
+<p>For the current user:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install sparkfun-qwiic-bme280
+</pre></div>
+</div>
+</div>
+<div class="section" id="local-installation">
+<h3>Local Installation<a class="headerlink" href="#local-installation" title="Permalink to this headline">¶</a></h3>
+<p>To install, make sure the setuptools package is installed on the system.</p>
+<p>Direct installation at the command line:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python setup.py install
+</pre></div>
+</div>
+<p>To build a package for use with pip:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python setup.py sdist
+</pre></div>
+</div>
+<p>A package file is built and placed in a subdirectory called dist. This package file can be installed using pip.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> dist
+pip install sparkfun_qwiic_bme280-&lt;version&gt;.tar.gz
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>Example Use<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>See the examples directory for more detailed use examples.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">qwiic_bme280</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="k">def</span> <span class="nf">runExample</span><span class="p">():</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">SparkFun BME280 Sensor  Example 1</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">mySensor</span> <span class="o">=</span> <span class="n">qwiic_bme280</span><span class="o">.</span><span class="n">QwiicBme280</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">mySensor</span><span class="o">.</span><span class="n">isConnected</span><span class="p">()</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;The Qwiic BME280 device isn&#39;t connected to the system. Please check your connection&quot;</span><span class="p">,</span> \
+            <span class="nb">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">mySensor</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span>
+
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Humidity:</span><span class="se">\t</span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mySensor</span><span class="o">.</span><span class="n">humidity</span><span class="p">)</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Pressure:</span><span class="se">\t</span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mySensor</span><span class="o">.</span><span class="n">pressure</span><span class="p">)</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Altitude:</span><span class="se">\t</span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mySensor</span><span class="o">.</span><span class="n">altitude_feet</span><span class="p">)</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Temperature:</span><span class="se">\t</span><span class="si">%.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mySensor</span><span class="o">.</span><span class="n">temperature_fahrenheit</span><span class="p">)</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p align="center">
+<img src="https://cdn.sparkfun.com/assets/custom_pages/3/3/4/dark-logo-red-flame.png" alt="SparkFun - Start Something">
+</p></div>
+</div>
+<div class="section" id="table-of-contents">
+<h1>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Qwiic_BME280_Py</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="apiref.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="apiref.html#qwiic-bme280">qwiic_bme280</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ex1.html">Basic Operation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex4.html">Adjust Sensor Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex5.html">Calibration Values</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Other Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://sparkfun.com">     SparkFun</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.sparkfun.com/products/14348">SparkFun Environmental Combo Breakout CCS811/BME280</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/sparkfun/Qwiic_BME280_Py">     GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.sparkfun.com/qwiic">     SparkFun qwiic</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="apiref.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, SparkFun Electronics
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

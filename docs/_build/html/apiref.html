@@ -1,0 +1,800 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>API Reference &mdash; sparkfun_qwiic_bme280 0.0.9 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Basic Operation" href="ex1.html" />
+    <link rel="prev" title="Qwiic_BME280_Py" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> sparkfun_qwiic_bme280
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Qwiic_BME280_Py</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#qwiic-bme280">qwiic_bme280</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ex1.html">Basic Operation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex4.html">Adjust Sensor Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex5.html">Calibration Values</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Other Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://sparkfun.com">     SparkFun</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.sparkfun.com/products/14348">SparkFun Environmental Combo Breakout CCS811/BME280</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/sparkfun/Qwiic_BME280_Py">     GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.sparkfun.com/qwiic">     SparkFun qwiic</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">sparkfun_qwiic_bme280</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>API Reference</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/apiref.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-qwiic_bme280">
+<span id="api-reference"></span><h1>API Reference<a class="headerlink" href="#module-qwiic_bme280" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="qwiic-bme280">
+<h2>qwiic_bme280<a class="headerlink" href="#qwiic-bme280" title="Permalink to this headline">¶</a></h2>
+<p>Python module for the qwiic bme280 sensor, which is part of the [SparkFun Qwiic Environmental Combo Breakout](<a class="reference external" href="https://www.sparkfun.com/products/14348">https://www.sparkfun.com/products/14348</a>)</p>
+<p>This python package is a port of the existing [SparkFun BME280 Arduino Library](<a class="reference external" href="https://github.com/sparkfun/SparkFun_BME280_Arduino_Library">https://github.com/sparkfun/SparkFun_BME280_Arduino_Library</a>)</p>
+<p>This package can be used in conjunction with the overall [SparkFun qwiic Python Package](<a class="reference external" href="https://github.com/sparkfun/Qwiic_Py">https://github.com/sparkfun/Qwiic_Py</a>)</p>
+<p>New to qwiic? Take a look at the entire [SparkFun qwiic ecosystem](<a class="reference external" href="https://www.sparkfun.com/qwiic">https://www.sparkfun.com/qwiic</a>).</p>
+<dl class="class">
+<dt id="qwiic_bme280.QwiicBme280">
+<em class="property">class </em><code class="descclassname">qwiic_bme280.</code><code class="descname">QwiicBme280</code><span class="sig-paren">(</span><em>address=None</em>, <em>i2c_driver=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwiic_bme280.html#QwiicBme280"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qwiic_bme280.QwiicBme280" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>address</strong> – The I2C address to use for the device. 
+If not provided, the default address is used.</li>
+<li><strong>i2c_driver</strong> – An existing i2c driver object. If not provided 
+a driver object is created.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The BME280 device object.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Object</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="qwiic_bme280.QwiicBme280.altitude_feet">
+<code class="descname">altitude_feet</code><a class="headerlink" href="#qwiic_bme280.QwiicBme280.altitude_feet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the current Altitude in feet</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The current altitude in feets</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="qwiic_bme280.QwiicBme280.altitude_meters">
+<code class="descname">altitude_meters</code><a class="headerlink" href="#qwiic_bme280.QwiicBme280.altitude_meters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the current Altitude in meters</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The current altitude in meters</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qwiic_bme280.QwiicBme280.begin">
+<code class="descname">begin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwiic_bme280.html#QwiicBme280.begin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qwiic_bme280.QwiicBme280.begin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the operation of the BME280 module</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Returns true of the initializtion was successful, otherwise False.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qwiic_bme280.QwiicBme280.checkSampleValue">
+<code class="descname">checkSampleValue</code><span class="sig-paren">(</span><em>userValue</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwiic_bme280.html#QwiicBme280.checkSampleValue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qwiic_bme280.QwiicBme280.checkSampleValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates an over sample value</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>userValue</strong> – The oversample value to check. 
+Allowed values are 0 to 16
+These are used in the humidty, pressure, and temp oversample functions</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Valid oversample value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qwiic_bme280.QwiicBme280.dewPointC">
+<code class="descname">dewPointC</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwiic_bme280.html#QwiicBme280.dewPointC"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qwiic_bme280.QwiicBme280.dewPointC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Dew point in degrees C.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The current dewpoint in C.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qwiic_bme280.QwiicBme280.dewPointF">
+<code class="descname">dewPointF</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwiic_bme280.html#QwiicBme280.dewPointF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qwiic_bme280.QwiicBme280.dewPointF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Dew point in degrees F.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The current dewpoint in F.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="qwiic_bme280.QwiicBme280.dewpoint_celsius">
+<code class="descname">dewpoint_celsius</code><a class="headerlink" href="#qwiic_bme280.QwiicBme280.dewpoint_celsius" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Dew point in degrees C.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The current dewpoint in C.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="qwiic_bme280.QwiicBme280.dewpoint_fahrenheit">
+<code class="descname">dewpoint_fahrenheit</code><a class="headerlink" href="#qwiic_bme280.QwiicBme280.dewpoint_fahrenheit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Dew point in degrees F.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The current dewpoint in F.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qwiic_bme280.QwiicBme280.getMode">
+<code class="descname">getMode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwiic_bme280.html#QwiicBme280.getMode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qwiic_bme280.QwiicBme280.getMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the operational mode of the sensor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The current operational mode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">MODE_SLEEP, MODE_FORCED, or MODE_NORMAL</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qwiic_bme280.QwiicBme280.getReferencePressure">
+<code class="descname">getReferencePressure</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwiic_bme280.html#QwiicBme280.getReferencePressure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qwiic_bme280.QwiicBme280.getReferencePressure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the current reference pressure for the sensor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The current reference pressure.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="qwiic_bme280.QwiicBme280.humidity">
+<code class="descname">humidity</code><a class="headerlink" href="#qwiic_bme280.QwiicBme280.humidity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns humidity in %RH as unsigned 32 bit integer in Q22. 10 format (22 integer and 10 fractional bits).
+Output value of “47445” represents 47445/1024 = 46. 33 %RH</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The current humidity value</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qwiic_bme280.QwiicBme280.isConnected">
+<code class="descname">isConnected</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwiic_bme280.html#QwiicBme280.isConnected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qwiic_bme280.QwiicBme280.isConnected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine if a BME280 device is conntected to the system..</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if the device is connected, otherwise False.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qwiic_bme280.QwiicBme280.isMeasuring">
+<code class="descname">isMeasuring</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwiic_bme280.html#QwiicBme280.isMeasuring"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qwiic_bme280.QwiicBme280.isMeasuring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return if the sensor is measuring or not</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if the sensor is measuring, else False</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Rvalue:</th><td class="field-body">boolean</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="qwiic_bme280.QwiicBme280.mode">
+<code class="descname">mode</code><a class="headerlink" href="#qwiic_bme280.QwiicBme280.mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the operational mode of the sensor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The current operational mode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">MODE_SLEEP, MODE_FORCED, or MODE_NORMAL</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="qwiic_bme280.QwiicBme280.pressure">
+<code class="descname">pressure</code><a class="headerlink" href="#qwiic_bme280.QwiicBme280.pressure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns pressure in Pa as unsigned 32 bit integer in Q24.8 format (24 integer bits and 8 fractional bits).
+Output value of “24674867” represents 24674867/256 = 96386.2 Pa = 963.862 hPa</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Pressure in Pa</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">integer</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qwiic_bme280.QwiicBme280.readFloatAltitudeFeet">
+<code class="descname">readFloatAltitudeFeet</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwiic_bme280.html#QwiicBme280.readFloatAltitudeFeet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qwiic_bme280.QwiicBme280.readFloatAltitudeFeet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the current Altitude in feet</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The current altitude in feets</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qwiic_bme280.QwiicBme280.readFloatAltitudeMeters">
+<code class="descname">readFloatAltitudeMeters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwiic_bme280.html#QwiicBme280.readFloatAltitudeMeters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qwiic_bme280.QwiicBme280.readFloatAltitudeMeters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the current Altitude in meters</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The current altitude in meters</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qwiic_bme280.QwiicBme280.readFloatHumidity">
+<code class="descname">readFloatHumidity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwiic_bme280.html#QwiicBme280.readFloatHumidity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qwiic_bme280.QwiicBme280.readFloatHumidity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns humidity in %RH as unsigned 32 bit integer in Q22. 10 format (22 integer and 10 fractional bits).
+Output value of “47445” represents 47445/1024 = 46. 33 %RH</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The current humidity value</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qwiic_bme280.QwiicBme280.readFloatPressure">
+<code class="descname">readFloatPressure</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwiic_bme280.html#QwiicBme280.readFloatPressure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qwiic_bme280.QwiicBme280.readFloatPressure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns pressure in Pa as unsigned 32 bit integer in Q24.8 format (24 integer bits and 8 fractional bits).
+Output value of “24674867” represents 24674867/256 = 96386.2 Pa = 963.862 hPa</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Pressure in Pa</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">integer</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qwiic_bme280.QwiicBme280.readTempC">
+<code class="descname">readTempC</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwiic_bme280.html#QwiicBme280.readTempC"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qwiic_bme280.QwiicBme280.readTempC" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Returns temperature in DegC, resolution is 0.01 DegC. Output value of “5123” equals 51.23 DegC.</dt>
+<dd>t_fine carries fine temperature as global value</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The current temperature in C.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qwiic_bme280.QwiicBme280.readTempF">
+<code class="descname">readTempF</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwiic_bme280.html#QwiicBme280.readTempF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qwiic_bme280.QwiicBme280.readTempF" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Returns temperature in Deg F, resolution is 0.01 DegF. Output value of “5123” equals 51.23 DegF.</dt>
+<dd>t_fine carries fine temperature as global value</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The current temperature in F.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="qwiic_bme280.QwiicBme280.reference_pressure">
+<code class="descname">reference_pressure</code><a class="headerlink" href="#qwiic_bme280.QwiicBme280.reference_pressure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the current reference pressure for the sensor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The current reference pressure.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qwiic_bme280.QwiicBme280.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwiic_bme280.html#QwiicBme280.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qwiic_bme280.QwiicBme280.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the sensor. If called, the begin method must be called before 
+using the sensor.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="qwiic_bme280.QwiicBme280.setFilter">
+<code class="descname">setFilter</code><span class="sig-paren">(</span><em>filterSetting</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwiic_bme280.html#QwiicBme280.setFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qwiic_bme280.QwiicBme280.setFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the filter bits in the BME280s config register</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filterSetting</strong> – The filter bits for the BME280. Acceptable values
+0 = filter off
+1 = coefficients = 2
+2 = coefficients = 4
+3 = coefficients = 8
+4 = coefficients = 16</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">No return value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qwiic_bme280.QwiicBme280.setHumidityOverSample">
+<code class="descname">setHumidityOverSample</code><span class="sig-paren">(</span><em>overSampleAmount</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwiic_bme280.html#QwiicBme280.setHumidityOverSample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qwiic_bme280.QwiicBme280.setHumidityOverSample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the humidity oversample value</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>overSampleAmount</strong> – The humidity oversample value. Acceptable values
+0 = turns off humidity sensing
+1 to 16 are valid over sampling values</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">No return value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qwiic_bme280.QwiicBme280.setMode">
+<code class="descname">setMode</code><span class="sig-paren">(</span><em>mode</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwiic_bme280.html#QwiicBme280.setMode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qwiic_bme280.QwiicBme280.setMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the operational mode of the sensor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mode</strong> – One of the class constant values.
+MODE_SLEEP, MODE_FORCED, MODE_NORMAL</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">No return value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qwiic_bme280.QwiicBme280.setPressureOverSample">
+<code class="descname">setPressureOverSample</code><span class="sig-paren">(</span><em>overSampleAmount</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwiic_bme280.html#QwiicBme280.setPressureOverSample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qwiic_bme280.QwiicBme280.setPressureOverSample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the pressure oversample value</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>overSampleAmount</strong> – The pressure oversample value. Acceptable values
+0 = turns off pressure sensing
+1 to 16 are valid over sampling values</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">No return value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qwiic_bme280.QwiicBme280.setReferencePressure">
+<code class="descname">setReferencePressure</code><span class="sig-paren">(</span><em>refPressure</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwiic_bme280.html#QwiicBme280.setReferencePressure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qwiic_bme280.QwiicBme280.setReferencePressure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the referance pressure for the sensor measurments.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>refPressure</strong> – The referance pressure to use.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">No return value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qwiic_bme280.QwiicBme280.setStandbyTime">
+<code class="descname">setStandbyTime</code><span class="sig-paren">(</span><em>timeSetting</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwiic_bme280.html#QwiicBme280.setStandbyTime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qwiic_bme280.QwiicBme280.setStandbyTime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the standby bits in the BME280s config register</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>timeSetting</strong> – The standby time bits - acceptable values
+0 = 0.5ms
+1 = 62.5ms
+2 = 125ms
+3 = 250ms
+4 = 500ms
+5 = 1000ms
+6 = 10ms
+7 = 20ms</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">No return value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="qwiic_bme280.QwiicBme280.setTempOverSample">
+<code class="descname">setTempOverSample</code><span class="sig-paren">(</span><em>overSampleAmount</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwiic_bme280.html#QwiicBme280.setTempOverSample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qwiic_bme280.QwiicBme280.setTempOverSample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the temperature oversample value</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>overSampleAmount</strong> – The temperature oversample value. Acceptable values
+0 = turns off temp sensing
+1 to 16 are valid over sampling values</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">No return value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="qwiic_bme280.QwiicBme280.temperature_celsius">
+<code class="descname">temperature_celsius</code><a class="headerlink" href="#qwiic_bme280.QwiicBme280.temperature_celsius" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Returns temperature in DegC, resolution is 0.01 DegC. Output value of “5123” equals 51.23 DegC.</dt>
+<dd>t_fine carries fine temperature as global value</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The current temperature in C.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="qwiic_bme280.QwiicBme280.temperature_fahrenheit">
+<code class="descname">temperature_fahrenheit</code><a class="headerlink" href="#qwiic_bme280.QwiicBme280.temperature_fahrenheit" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Returns temperature in Deg F, resolution is 0.01 DegF. Output value of “5123” equals 51.23 DegF.</dt>
+<dd>t_fine carries fine temperature as global value</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The current temperature in F.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ex1.html" class="btn btn-neutral float-right" title="Basic Operation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Qwiic_BME280_Py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, SparkFun Electronics
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

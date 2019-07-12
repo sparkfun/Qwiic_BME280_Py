@@ -177,11 +177,11 @@ class QwiicBme280(object):
 		self._referencePressure = 101325.0
 
 	# ----------------------------------
-	# isConnected()
+	# is_Connected()
 	#
 	# Is an actual board connected to our system?
 
-	def isConnected(self):
+	def is_connected(self):
 		""" 
 			Determine if a BME280 device is conntected to the system..
 
@@ -191,6 +191,7 @@ class QwiicBme280(object):
 		"""
 		return qwiic_i2c.isDeviceConnected(self.address)
 
+	connected = property(is_connected)
 	# ----------------------------------
 	# begin()
 	#
@@ -234,20 +235,20 @@ class QwiicBme280(object):
 		# Most of the time the sensor will be init with default values
 		# But in case user has old/deprecated code, use the _settings.x values
 	
-		self.setStandbyTime(_settings["tStandby"])
-		self.setFilter(_settings["filter"])
-		self.setPressureOverSample(_settings["pressOverSample"]) # Default of 1x oversample
-		self.setHumidityOverSample(_settings["humidOverSample"]) # Default of 1x oversample
-		self.setTempOverSample(_settings["tempOverSample"]) # Default of 1x oversample
+		self.set_standby_time(_settings["tStandby"])
+		self.set_filter(_settings["filter"])
+		self.set_pressure_oversample(_settings["pressOverSample"]) # Default of 1x oversample
+		self.set_humidity_oversample(_settings["humidOverSample"]) # Default of 1x oversample
+		self.set_tempature_oversample(_settings["tempOverSample"]) # Default of 1x oversample
 	
-		self.setMode(self.MODE_NORMAL) #Go!
+		self.set_mode(self.MODE_NORMAL) #Go!
 	
 		return True
 
 	#----------------------------------------------------------------
 	# Mode of the sensor 
 
-	def setMode(self, mode):
+	def set_mode(self, mode):
 		""" 
 			Set the operational mode of the sensor.
 
@@ -266,7 +267,7 @@ class QwiicBme280(object):
 		self._i2c.writeByte(self.address, self.BME280_CTRL_MEAS_REG, controlData)
 
 
-	def getMode(self):
+	def get_mode(self):
 		""" 
 			Returns the operational mode of the sensor.
 
@@ -278,7 +279,7 @@ class QwiicBme280(object):
 		return controlData & 0b00000011
 
 	# Make the mode a property of this object
-	mode = property(getMode, setMode)
+	mode = property(get_mode, set_mode)
 
 	#----------------------------------------------------------------
 	# Set the standby bits in the config register
@@ -291,7 +292,7 @@ class QwiicBme280(object):
 	#   5, 1000ms
 	#   6, 10ms
 	#   7, 20ms
-	def setStandbyTime(self, timeSetting):
+	def set_standby_time(self, timeSetting):
 		"""
 		Set the standby bits in the BME280s config register
 
@@ -319,7 +320,7 @@ class QwiicBme280(object):
 
 	# Make standby time a property
 	standby_time = property()
-	standby_time = standby_time.setter(setStandbyTime)
+	standby_time = standby_time.setter(set_standby_time)
 
 	#---------------------------------------------------------------- 
 	# Set the filter bits in the config register
@@ -329,7 +330,7 @@ class QwiicBme280(object):
 	#   2, coefficients = 4
 	#   3, coefficients = 8
 	#   4, coefficients = 16
-	def setFilter(self, filterSetting):
+	def set_filter(self, filterSetting):
 		"""
 		Set the filter bits in the BME280s config register
 
@@ -352,13 +353,13 @@ class QwiicBme280(object):
 		self._i2c.writeByte(self.address, self.BME280_CONFIG_REG, controlData)
 
 	filter = property()
-	filter = filter.setter(setFilter)
+	filter = filter.setter(set_filter)
 
 	#----------------------------------------------------------------	
 	# Set the temperature oversample value
 	# 0 turns off temp sensing
 	# 1 to 16 are valid over sampling values
-	def setTempOverSample(self, overSampleAmount):
+	def set_tempature_oversample(self, overSampleAmount):
 		"""
 		Set the temperature oversample value
 
@@ -368,11 +369,11 @@ class QwiicBme280(object):
 
 		:return: No return value 
 		"""
-		overSampleAmount = self.checkSampleValue(overSampleAmount) # Error check
+		overSampleAmount = self.check_sample_value(overSampleAmount) # Error check
 		
-		originalMode = self.getMode() # Get the current mode so we can go back to it at the end
+		originalMode = self.get_mode() # Get the current mode so we can go back to it at the end
 		
-		self.setMode(self.MODE_SLEEP) # Config will only be writeable in sleep mode, so first go to sleep mode
+		self.set_mode(self.MODE_SLEEP) # Config will only be writeable in sleep mode, so first go to sleep mode
 	
 		# Set the osrs_t bits (7, 6, 5) to overSampleAmount
 		controlData = self._i2c.readByte(self.address, self.BME280_CTRL_MEAS_REG)
@@ -380,15 +381,15 @@ class QwiicBme280(object):
 		controlData |= overSampleAmount << 5 # Align overSampleAmount to bits 7/6/5
 		self._i2c.writeByte(self.address, self.BME280_CTRL_MEAS_REG, controlData)
 		
-		self.setMode(originalMode) # Return to the original user's choice
+		self.set_mode(originalMode) # Return to the original user's choice
 
 	tempature_oversample = property()
-	tempature_oversample = tempature_oversample.setter(setTempOverSample)
+	tempature_oversample = tempature_oversample.setter(set_tempature_oversample)
 
 	# Set the pressure oversample value
 	# 0 turns off pressure sensing
 	# 1 to 16 are valid over sampling values
-	def setPressureOverSample(self, overSampleAmount):
+	def set_pressure_oversample(self, overSampleAmount):
 		"""
 		Set the pressure oversample value
 
@@ -398,11 +399,11 @@ class QwiicBme280(object):
 
 		:return: No return value 
 		"""
-		overSampleAmount = self.checkSampleValue(overSampleAmount) # Error check
+		overSampleAmount = self.check_sample_value(overSampleAmount) # Error check
 		
-		originalMode = self.getMode() # Get the current mode so we can go back to it at the end
+		originalMode = self.get_mode() # Get the current mode so we can go back to it at the end
 		
-		self.setMode(self.MODE_SLEEP) # Config will only be writeable in sleep mode, so first go to sleep mode
+		self.set_mode(self.MODE_SLEEP) # Config will only be writeable in sleep mode, so first go to sleep mode
 	
 		# Set the osrs_p bits (4, 3, 2) to overSampleAmount
 		controlData = self._i2c.readByte(self.address, self.BME280_CTRL_MEAS_REG)
@@ -410,16 +411,16 @@ class QwiicBme280(object):
 		controlData |= overSampleAmount << 2 # Align overSampleAmount to bits 4/3/2
 		self._i2c.writeByte(self.address, self.BME280_CTRL_MEAS_REG, controlData)
 		
-		self.setMode(originalMode) # Return to the original user's choice
+		self.set_mode(originalMode) # Return to the original user's choice
 
 	pressure_oversample = property()
-	pressure_oversample = pressure_oversample.setter(setPressureOverSample)
+	pressure_oversample = pressure_oversample.setter(set_pressure_oversample)
 
 	#----------------------------------------------------------------	
 	# Set the humidity oversample value
 	# 0 turns off humidity sensing
 	# 1 to 16 are valid over sampling values
-	def setHumidityOverSample(self, overSampleAmount):
+	def set_humidity_oversample(self, overSampleAmount):
 		"""
 		Set the humidity oversample value
 
@@ -429,11 +430,11 @@ class QwiicBme280(object):
 
 		:return: No return value 
 		"""
-		overSampleAmount = self.checkSampleValue(overSampleAmount) # Error check
+		overSampleAmount = self.check_sample_value(overSampleAmount) # Error check
 		
-		originalMode = self.getMode() # Get the current mode so we can go back to it at the end
+		originalMode = self.get_mode() # Get the current mode so we can go back to it at the end
 		
-		self.setMode(self.MODE_SLEEP) # Config will only be writeable in sleep mode, so first go to sleep mode
+		self.set_mode(self.MODE_SLEEP) # Config will only be writeable in sleep mode, so first go to sleep mode
 	
 		# Set the osrs_h bits (2, 1, 0) to overSampleAmount
 		controlData = self._i2c.readByte(self.address, self.BME280_CTRL_HUMIDITY_REG)
@@ -441,16 +442,16 @@ class QwiicBme280(object):
 		controlData |= overSampleAmount << 0 # Align overSampleAmount to bits 2/1/0
 		self._i2c.writeByte(self.address, self.BME280_CTRL_HUMIDITY_REG, controlData)
 	
-		self.setMode(originalMode) # Return to the original user's choice
+		self.set_mode(originalMode) # Return to the original user's choice
 
 	humidity_oversample = property()
-	humidity_oversample = humidity_oversample.setter(setHumidityOverSample)
+	humidity_oversample = humidity_oversample.setter(set_humidity_oversample)
 
 	#----------------------------------------------------------------	
 	# Validates an over sample value
 	# Allowed values are 0 to 16
 	# These are used in the humidty, pressure, and temp oversample functions
-	def checkSampleValue(self, userValue):
+	def check_sample_value(self, userValue):
 		"""
 		Validates an over sample value
 
@@ -466,7 +467,7 @@ class QwiicBme280(object):
 		return _valueMap[userValue] if userValue in _valueMap.keys() else 1
 		
 	# Check the measuring bit and return true while device is taking measurement
-	def isMeasuring(self):
+	def is_measuring(self):
 		"""
 		Return if the sensor is measuring or not
 
@@ -492,7 +493,7 @@ class QwiicBme280(object):
 	#   Pressure Section
 	# 
 	# ****************************************************************************# 
-	def readFloatPressure( self ):
+	def read_pressure( self ):
 		"""
 		Returns pressure in Pa as unsigned 32 bit integer in Q24.8 format (24 integer bits and 8 fractional bits).
 		Output value of "24674867" represents 24674867/256 = 96386.2 Pa = 963.862 hPa
@@ -526,11 +527,11 @@ class QwiicBme280(object):
 		
 		return p_acc / 256.0
 		
-	pressure = property(readFloatPressure)
+	pressure = property(read_pressure)
 
 	#----------------------------------------------------------------	
 	# Sets the internal variable _referencePressure so the 
-	def setReferencePressure(self, refPressure):
+	def set_reference_pressure(self, refPressure):
 		"""
 		Sets the referance pressure for the sensor measurments.
 
@@ -541,7 +542,7 @@ class QwiicBme280(object):
 		self._referencePressure = float(refPressure)
 	
 	# Return the local reference pressure
-	def getReferencePressure(self):
+	def get_reference_pressure(self):
 		"""
 		Get the current reference pressure for the sensor.
 
@@ -550,10 +551,10 @@ class QwiicBme280(object):
 		"""
 		return self._referencePressure
 	
-	reference_pressure = property(getReferencePressure, setReferencePressure)
+	reference_pressure = property(get_reference_pressure, set_reference_pressure)
 
 	#----------------------------------------------------------------	
-	def readFloatAltitudeMeters( self ):
+	def get_altitude_meters( self ):
 		"""
 		Return the current Altitude in meters
 
@@ -562,21 +563,21 @@ class QwiicBme280(object):
 		"""
 		# heightOutput = ((float)-45846.2)*(pow(((float)readFloatPressure()/(float)_referencePressure), 0.190263) - (float)1);
 
-		return (-44330.77)*(math.pow((self.readFloatPressure()/self._referencePressure), 0.190263) - 1.0) # Corrected, see issue 30
+		return (-44330.77)*(math.pow((self.pressure/self._referencePressure), 0.190263) - 1.0) # Corrected, see issue 30
 	
-	altitude_meters = property(readFloatAltitudeMeters)
+	altitude_meters = property(get_altitude_meters)
 
 	#----------------------------------------------------------------
-	def readFloatAltitudeFeet( self ):
+	def get_altitude_feet( self ):
 		"""
 		Return the current Altitude in feet
 
 		:return: The current altitude in feets
 		:rtype: float
 		"""
-		return self.readFloatAltitudeMeters() * 3.28084
+		return self.get_altitude_meters() * 3.28084
 	
-	altitude_feet = property(readFloatAltitudeFeet)
+	altitude_feet = property(get_altitude_feet)
 
 
 	# ****************************************************************************# 
@@ -584,7 +585,7 @@ class QwiicBme280(object):
 	#   Humidity Section
 	# 
 	# ****************************************************************************# 
-	def readFloatHumidity( self ):
+	def read_humidity( self ):
 		"""
 		Returns humidity in %RH as unsigned 32 bit integer in Q22. 10 format (22 integer and 10 fractional bits).
 		Output value of "47445" represents 47445/1024 = 46. 33 %RH
@@ -609,7 +610,7 @@ class QwiicBme280(object):
 	
 		return (var1>>12) / 1024.0
 
-	humidity = property(readFloatHumidity)
+	humidity = property(read_humidity)
 
 	# ****************************************************************************# 
 	# 
@@ -617,7 +618,7 @@ class QwiicBme280(object):
 	# 
 	# ****************************************************************************# 
 	
-	def readTempC( self ):
+	def get_temperature_celsius( self ):
 		"""
 		Returns temperature in DegC, resolution is 0.01 DegC. Output value of "5123" equals 51.23 DegC.
 		 t_fine carries fine temperature as global value
@@ -643,10 +644,10 @@ class QwiicBme280(object):
 	
 		return output / 100 + _settings["tempCorrection"]
 		
-	temperature_celsius = property(readTempC)
+	temperature_celsius = property(get_temperature_celsius)
 
 	#----------------------------------------------------------------	
-	def readTempF( self ):
+	def get_temperature_fahrenheit( self ):
 		"""
 		Returns temperature in Deg F, resolution is 0.01 DegF. Output value of "5123" equals 51.23 DegF.
 		 t_fine carries fine temperature as global value
@@ -654,10 +655,10 @@ class QwiicBme280(object):
 		:return: The current temperature in F.
 		:rtype: float
 		"""
-		output = self.readTempC()
+		output = self.temperature_celsius
 		return (output * 9) / 5 + 32
 
-	temperature_fahrenheit = property(readTempF)
+	temperature_fahrenheit = property(get_temperature_fahrenheit)
 
 	# ****************************************************************************# 
 	# 
@@ -666,7 +667,7 @@ class QwiicBme280(object):
 	# ****************************************************************************# 
 	#  Returns Dew point in DegC
 
-	def dewPointC(self):
+	def get_dewpoint_celsius(self):
 		"""
 		Returns the Dew point in degrees C. 
 
@@ -689,17 +690,17 @@ class QwiicBme280(object):
 		T = math.log(VP/0.61078)   #  temp var
 		return (241.88 * T) / (17.558 - T)
 	
-	dewpoint_celsius = property(dewPointC)
+	dewpoint_celsius = property(get_dewpoint_celsius)
 
 	#----------------------------------------------------------------	
 	#  Returns Dew point in DegF
-	def dewPointF(self):
+	def get_dewpoint_fahrenheit(self):
 		"""
 		Returns the Dew point in degrees F. 
 
 		:return: The current dewpoint in F.
 		:rtype: float
 		"""
-		return self.dewPointC() * 1.8 + 32 # Convert C to F
+		return self.get_dewpoint_celsius() * 1.8 + 32 # Convert C to F
 
-	dewpoint_fahrenheit = property(dewPointF)
+	dewpoint_fahrenheit = property(get_dewpoint_fahrenheit)

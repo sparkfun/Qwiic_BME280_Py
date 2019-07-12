@@ -1,0 +1,899 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>qwiic_bme280 &mdash; sparkfun_qwiic_bme280 0.0.9 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> sparkfun_qwiic_bme280
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Qwiic_BME280_Py</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../apiref.html">API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ex1.html">Basic Operation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ex4.html">Adjust Sensor Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ex5.html">Calibration Values</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Other Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://sparkfun.com">     SparkFun</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.sparkfun.com/products/14348">SparkFun Environmental Combo Breakout CCS811/BME280</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/sparkfun/Qwiic_BME280_Py">     GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.sparkfun.com/qwiic">     SparkFun qwiic</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">sparkfun_qwiic_bme280</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>qwiic_bme280</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for qwiic_bme280</h1><div class="highlight"><pre>
+<span></span><span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># qwiic_bme280.py</span>
+<span class="c1">#</span>
+<span class="c1"># Python library for the SparkFun qwiic BME280 sensor.</span>
+<span class="c1">#</span>
+<span class="c1"># This sensor is available on the SparkFun Environmental Combo Breakout board.</span>
+<span class="c1">#	https://www.sparkfun.com/products/14348</span>
+<span class="c1">#</span>
+<span class="c1">#------------------------------------------------------------------------</span>
+<span class="c1">#</span>
+<span class="c1"># Written by  SparkFun Electronics, May 2019</span>
+<span class="c1"># </span>
+<span class="c1"># This python library supports the SparkFun Electroncis qwiic </span>
+<span class="c1"># qwiic sensor/board ecosystem </span>
+<span class="c1">#</span>
+<span class="c1"># More information on qwiic is at https:// www.sparkfun.com/qwiic</span>
+<span class="c1">#</span>
+<span class="c1"># Do you like this library? Help support SparkFun. Buy a board!</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;http:# www.gnu.org/licenses/&gt;.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">qwiic_bme280</span>
+<span class="sd">============</span>
+<span class="sd">Python module for the qwiic bme280 sensor, which is part of the [SparkFun Qwiic Environmental Combo Breakout](https://www.sparkfun.com/products/14348)</span>
+
+<span class="sd">This python package is a port of the existing [SparkFun BME280 Arduino Library](https://github.com/sparkfun/SparkFun_BME280_Arduino_Library)</span>
+
+<span class="sd">This package can be used in conjunction with the overall [SparkFun qwiic Python Package](https://github.com/sparkfun/Qwiic_Py)</span>
+
+<span class="sd">New to qwiic? Take a look at the entire [SparkFun qwiic ecosystem](https://www.sparkfun.com/qwiic).</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">qwiic_i2c</span>
+
+<span class="c1"># Define the device name and I2C addresses. These are set in the class defintion </span>
+<span class="c1"># as class variables, making them avilable without having to create a class instance.</span>
+<span class="c1"># This allows higher level logic to rapidly create a index of qwiic devices at </span>
+<span class="c1"># runtine</span>
+<span class="c1">#</span>
+<span class="c1"># The name of this device </span>
+<span class="n">_DEFAULT_NAME</span> <span class="o">=</span> <span class="s2">&quot;Qwiic BME280&quot;</span>
+
+<span class="c1"># Some devices have multiple availabel addresses - this is a list of these addresses.</span>
+<span class="c1"># NOTE: The first address in this list is considered the default I2C address for the </span>
+<span class="c1"># device.</span>
+<span class="n">_AVAILABLE_I2C_ADDRESS</span> <span class="o">=</span> <span class="p">[</span><span class="mh">0x77</span><span class="p">,</span> <span class="mh">0x76</span><span class="p">]</span>
+
+<span class="c1"># Default Setting Values</span>
+<span class="n">_settings</span> <span class="o">=</span> <span class="p">{</span>   <span class="s2">&quot;runMode&quot;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span> 			\
+				<span class="s2">&quot;tStandby&quot;</span> 	<span class="p">:</span> <span class="mi">0</span><span class="p">,</span> 		\
+				<span class="s2">&quot;filter&quot;</span> 	<span class="p">:</span> <span class="mi">0</span><span class="p">,</span> 		\
+				<span class="s2">&quot;tempOverSample&quot;</span>  <span class="p">:</span> <span class="mi">1</span><span class="p">,</span> 	\
+				<span class="s2">&quot;pressOverSample&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span> 	\
+				<span class="s2">&quot;humidOverSample&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span> 	\
+				<span class="s2">&quot;tempCorrection&quot;</span>  <span class="p">:</span> <span class="mf">0.0</span>  <span class="p">}</span>
+
+<span class="c1"># define our valid chip IDs</span>
+<span class="n">_validChipIDs</span> <span class="o">=</span> <span class="p">[</span><span class="mh">0x58</span><span class="p">,</span> <span class="mh">0x60</span><span class="p">]</span>
+
+<span class="c1"># define the class that encapsulates the device being created. All information associated with this</span>
+<span class="c1"># device is encapsulated by this class. The device class should be the only value exported </span>
+<span class="c1"># from this module.</span>
+
+<div class="viewcode-block" id="QwiicBme280"><a class="viewcode-back" href="../apiref.html#qwiic_bme280.QwiicBme280">[docs]</a><span class="k">class</span> <span class="nc">QwiicBme280</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	QwiicBme280</span>
+
+<span class="sd">		:param address: The I2C address to use for the device. </span>
+<span class="sd">						If not provided, the default address is used.</span>
+<span class="sd">		:param i2c_driver: An existing i2c driver object. If not provided </span>
+<span class="sd">						a driver object is created. </span>
+<span class="sd">		:return: The BME280 device object.</span>
+<span class="sd">		:rtype: Object</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="c1"># Constructor</span>
+	<span class="n">device_name</span>			<span class="o">=</span> <span class="n">_DEFAULT_NAME</span>
+	<span class="n">available_addresses</span>	<span class="o">=</span> <span class="n">_AVAILABLE_I2C_ADDRESS</span>
+
+	<span class="c1"># mode flags for the device - user exposed</span>
+	<span class="n">MODE_SLEEP</span> <span class="o">=</span> <span class="mb">0b00</span>
+	<span class="n">MODE_FORCED</span> <span class="o">=</span> <span class="mb">0b01</span>
+	<span class="n">MODE_NORMAL</span> <span class="o">=</span> <span class="mb">0b11</span>
+
+	<span class="c1"># Register names for the BME280</span>
+	<span class="n">BME280_DIG_T1_LSB_REG</span> <span class="o">=</span>			<span class="mh">0x88</span>
+	<span class="n">BME280_DIG_T1_MSB_REG</span> <span class="o">=</span>			<span class="mh">0x89</span>
+	<span class="n">BME280_DIG_T2_LSB_REG</span> <span class="o">=</span>			<span class="mh">0x8A</span>
+	<span class="n">BME280_DIG_T2_MSB_REG</span> <span class="o">=</span>			<span class="mh">0x8B</span>
+	<span class="n">BME280_DIG_T3_LSB_REG</span> <span class="o">=</span>			<span class="mh">0x8C</span>
+	<span class="n">BME280_DIG_T3_MSB_REG</span> <span class="o">=</span>			<span class="mh">0x8D</span>
+	<span class="n">BME280_DIG_P1_LSB_REG</span> <span class="o">=</span>			<span class="mh">0x8E</span>
+	<span class="n">BME280_DIG_P1_MSB_REG</span> <span class="o">=</span>			<span class="mh">0x8F</span>
+	<span class="n">BME280_DIG_P2_LSB_REG</span> <span class="o">=</span>			<span class="mh">0x90</span>
+	<span class="n">BME280_DIG_P2_MSB_REG</span> <span class="o">=</span>			<span class="mh">0x91</span>
+	<span class="n">BME280_DIG_P3_LSB_REG</span> <span class="o">=</span>			<span class="mh">0x92</span>
+	<span class="n">BME280_DIG_P3_MSB_REG</span> <span class="o">=</span>			<span class="mh">0x93</span>
+	<span class="n">BME280_DIG_P4_LSB_REG</span> <span class="o">=</span>			<span class="mh">0x94</span>
+	<span class="n">BME280_DIG_P4_MSB_REG</span> <span class="o">=</span>			<span class="mh">0x95</span>
+	<span class="n">BME280_DIG_P5_LSB_REG</span> <span class="o">=</span>			<span class="mh">0x96</span>
+	<span class="n">BME280_DIG_P5_MSB_REG</span> <span class="o">=</span>			<span class="mh">0x97</span>
+	<span class="n">BME280_DIG_P6_LSB_REG</span> <span class="o">=</span>			<span class="mh">0x98</span>
+	<span class="n">BME280_DIG_P6_MSB_REG</span> <span class="o">=</span>			<span class="mh">0x99</span>
+	<span class="n">BME280_DIG_P7_LSB_REG</span> <span class="o">=</span>			<span class="mh">0x9A</span>
+	<span class="n">BME280_DIG_P7_MSB_REG</span> <span class="o">=</span>			<span class="mh">0x9B</span>
+	<span class="n">BME280_DIG_P8_LSB_REG</span> <span class="o">=</span>			<span class="mh">0x9C</span>
+	<span class="n">BME280_DIG_P8_MSB_REG</span> <span class="o">=</span>			<span class="mh">0x9D</span>
+	<span class="n">BME280_DIG_P9_LSB_REG</span> <span class="o">=</span>			<span class="mh">0x9E</span>
+	<span class="n">BME280_DIG_P9_MSB_REG</span> <span class="o">=</span>			<span class="mh">0x9F</span>
+	<span class="n">BME280_DIG_H1_REG</span> <span class="o">=</span>				<span class="mh">0xA1</span>
+	<span class="n">BME280_CHIP_ID_REG</span> <span class="o">=</span>			<span class="mh">0xD0</span> <span class="c1"># Chip ID</span>
+	<span class="n">BME280_RST_REG</span> <span class="o">=</span>				<span class="mh">0xE0</span> <span class="c1"># Softreset Reg</span>
+	<span class="n">BME280_DIG_H2_LSB_REG</span> <span class="o">=</span>			<span class="mh">0xE1</span>
+	<span class="n">BME280_DIG_H2_MSB_REG</span> <span class="o">=</span>			<span class="mh">0xE2</span>
+	<span class="n">BME280_DIG_H3_REG</span> <span class="o">=</span>				<span class="mh">0xE3</span>
+	<span class="n">BME280_DIG_H4_MSB_REG</span> <span class="o">=</span>			<span class="mh">0xE4</span>
+	<span class="n">BME280_DIG_H4_LSB_REG</span> <span class="o">=</span>			<span class="mh">0xE5</span>
+	<span class="n">BME280_DIG_H5_MSB_REG</span> <span class="o">=</span>			<span class="mh">0xE6</span>
+	<span class="n">BME280_DIG_H6_REG</span> <span class="o">=</span>				<span class="mh">0xE7</span>
+	<span class="n">BME280_CTRL_HUMIDITY_REG</span> <span class="o">=</span>		<span class="mh">0xF2</span> <span class="c1"># Ctrl Humidity Reg</span>
+	<span class="n">BME280_STAT_REG</span> <span class="o">=</span>				<span class="mh">0xF3</span> <span class="c1"># Status Reg</span>
+	<span class="n">BME280_CTRL_MEAS_REG</span> <span class="o">=</span>			<span class="mh">0xF4</span> <span class="c1"># Ctrl Measure Reg</span>
+	<span class="n">BME280_CONFIG_REG</span> <span class="o">=</span>				<span class="mh">0xF5</span> <span class="c1"># Configuration Reg</span>
+	<span class="n">BME280_PRESSURE_MSB_REG</span> <span class="o">=</span>		<span class="mh">0xF7</span> <span class="c1"># Pressure MSB</span>
+	<span class="n">BME280_PRESSURE_LSB_REG</span> <span class="o">=</span>		<span class="mh">0xF8</span> <span class="c1"># Pressure LSB</span>
+	<span class="n">BME280_PRESSURE_XLSB_REG</span> <span class="o">=</span>		<span class="mh">0xF9</span> <span class="c1"># Pressure XLSB</span>
+	<span class="n">BME280_TEMPERATURE_MSB_REG</span> <span class="o">=</span>	<span class="mh">0xFA</span> <span class="c1"># Temperature MSB</span>
+	<span class="n">BME280_TEMPERATURE_LSB_REG</span> <span class="o">=</span>	<span class="mh">0xFB</span> <span class="c1"># Temperature LSB</span>
+	<span class="n">BME280_TEMPERATURE_XLSB_REG</span> <span class="o">=</span>	<span class="mh">0xFC</span> <span class="c1"># Temperature XLSB</span>
+	<span class="n">BME280_HUMIDITY_MSB_REG</span> <span class="o">=</span>		<span class="mh">0xFD</span> <span class="c1"># Humidity MSB</span>
+	<span class="n">BME280_HUMIDITY_LSB_REG</span> <span class="o">=</span>		<span class="mh">0xFE</span> <span class="c1"># Humidity LSB</span>
+
+	<span class="c1"># Constructor</span>
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">i2c_driver</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+		<span class="c1"># Did the user specify an I2C address?</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">address</span> <span class="k">if</span> <span class="n">address</span> <span class="o">!=</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">available_addresses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+		<span class="c1"># load the I2C driver if one isn&#39;t provided</span>
+
+		<span class="k">if</span> <span class="n">i2c_driver</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span> <span class="o">=</span> <span class="n">qwiic_i2c</span><span class="o">.</span><span class="n">getI2CDriver</span><span class="p">()</span>
+			<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+				<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unable to load I2C driver for this platform.&quot;</span><span class="p">)</span>
+				<span class="k">return</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span> <span class="o">=</span> <span class="n">i2c_driver</span>
+
+
+		<span class="c1"># create a dictionary to stash our calibration data for the sensor</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="o">=</span><span class="p">{}</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">t_fine</span><span class="o">=</span><span class="mi">0</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">_referencePressure</span> <span class="o">=</span> <span class="mf">101325.0</span>
+
+	<span class="c1"># ----------------------------------</span>
+	<span class="c1"># isConnected()</span>
+	<span class="c1">#</span>
+	<span class="c1"># Is an actual board connected to our system?</span>
+
+<div class="viewcode-block" id="QwiicBme280.isConnected"><a class="viewcode-back" href="../apiref.html#qwiic_bme280.QwiicBme280.isConnected">[docs]</a>	<span class="k">def</span> <span class="nf">isConnected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">			Determine if a BME280 device is conntected to the system..</span>
+
+<span class="sd">			:return: True if the device is connected, otherwise False.</span>
+<span class="sd">			:rtype: bool</span>
+
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">return</span> <span class="n">qwiic_i2c</span><span class="o">.</span><span class="n">isDeviceConnected</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">)</span></div>
+
+	<span class="c1"># ----------------------------------</span>
+	<span class="c1"># begin()</span>
+	<span class="c1">#</span>
+	<span class="c1"># Initialize the system/validate the board. </span>
+<div class="viewcode-block" id="QwiicBme280.begin"><a class="viewcode-back" href="../apiref.html#qwiic_bme280.QwiicBme280.begin">[docs]</a>	<span class="k">def</span> <span class="nf">begin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">			Initialize the operation of the BME280 module</span>
+
+<span class="sd">			:return: Returns true of the initializtion was successful, otherwise False.</span>
+<span class="sd">			:rtype: bool</span>
+
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="c1"># are we who we need to be?</span>
+		<span class="n">chipID</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_CHIP_ID_REG</span><span class="p">)</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="n">chipID</span> <span class="ow">in</span> <span class="n">_validChipIDs</span><span class="p">:</span>
+			<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Invalid Chip ID: 0x</span><span class="si">%.2X</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">chipID</span><span class="p">)</span>
+			<span class="k">return</span> <span class="kc">False</span>
+
+		<span class="c1"># Reading all compensation data, range 0x88:A1, 0xE1:E7</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_T1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_T1_MSB_REG</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_T1_LSB_REG</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_T2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_T2_MSB_REG</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_T2_LSB_REG</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_T3&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_T3_MSB_REG</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_T3_LSB_REG</span><span class="p">)</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_P1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_P1_MSB_REG</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_P1_LSB_REG</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_P2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_P2_MSB_REG</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_P2_LSB_REG</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_P3&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_P3_MSB_REG</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_P3_LSB_REG</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_P4&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_P4_MSB_REG</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_P4_LSB_REG</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_P5&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_P5_MSB_REG</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_P5_LSB_REG</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_P6&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_P6_MSB_REG</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_P6_LSB_REG</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_P7&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_P7_MSB_REG</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_P7_LSB_REG</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_P8&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_P8_MSB_REG</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_P8_LSB_REG</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_P9&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_P9_MSB_REG</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_P9_LSB_REG</span><span class="p">)</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_H1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_H1_REG</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_H2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_H2_MSB_REG</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_H2_LSB_REG</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_H3&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_H3_REG</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_H4&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_H4_MSB_REG</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_H4_LSB_REG</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x0F</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_H5&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_H5_MSB_REG</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_H4_LSB_REG</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x0F</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_H6&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_DIG_H6_REG</span><span class="p">)</span>
+
+		<span class="c1"># Most of the time the sensor will be init with default values</span>
+		<span class="c1"># But in case user has old/deprecated code, use the _settings.x values</span>
+	
+		<span class="bp">self</span><span class="o">.</span><span class="n">setStandbyTime</span><span class="p">(</span><span class="n">_settings</span><span class="p">[</span><span class="s2">&quot;tStandby&quot;</span><span class="p">])</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">setFilter</span><span class="p">(</span><span class="n">_settings</span><span class="p">[</span><span class="s2">&quot;filter&quot;</span><span class="p">])</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">setPressureOverSample</span><span class="p">(</span><span class="n">_settings</span><span class="p">[</span><span class="s2">&quot;pressOverSample&quot;</span><span class="p">])</span> <span class="c1"># Default of 1x oversample</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">setHumidityOverSample</span><span class="p">(</span><span class="n">_settings</span><span class="p">[</span><span class="s2">&quot;humidOverSample&quot;</span><span class="p">])</span> <span class="c1"># Default of 1x oversample</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">setTempOverSample</span><span class="p">(</span><span class="n">_settings</span><span class="p">[</span><span class="s2">&quot;tempOverSample&quot;</span><span class="p">])</span> <span class="c1"># Default of 1x oversample</span>
+	
+		<span class="bp">self</span><span class="o">.</span><span class="n">setMode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MODE_NORMAL</span><span class="p">)</span> <span class="c1">#Go!</span>
+	
+		<span class="k">return</span> <span class="kc">True</span></div>
+
+	<span class="c1">#----------------------------------------------------------------</span>
+	<span class="c1"># Mode of the sensor </span>
+
+<div class="viewcode-block" id="QwiicBme280.setMode"><a class="viewcode-back" href="../apiref.html#qwiic_bme280.QwiicBme280.setMode">[docs]</a>	<span class="k">def</span> <span class="nf">setMode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">			Set the operational mode of the sensor.</span>
+
+<span class="sd">			:param mode: One of the class constant values.</span>
+<span class="sd">					MODE_SLEEP, MODE_FORCED, MODE_NORMAL </span>
+
+<span class="sd">			:return: No return value</span>
+
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">if</span> <span class="n">mode</span> <span class="o">&gt;</span> <span class="mb">0b11</span><span class="p">:</span>
+			<span class="n">mode</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Error check. Default to sleep mode</span>
+	
+		<span class="n">controlData</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_CTRL_MEAS_REG</span><span class="p">)</span>
+		<span class="n">controlData</span> <span class="o">&amp;=</span> <span class="p">(</span><span class="o">~</span><span class="p">(</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">0</span><span class="p">)</span> <span class="p">)</span> <span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="c1"># Clear the mode[1:0] bits - note we just want a byte</span>
+		<span class="n">controlData</span> <span class="o">|=</span> <span class="n">mode</span>   <span class="c1"># Set</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">writeByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_CTRL_MEAS_REG</span><span class="p">,</span> <span class="n">controlData</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="QwiicBme280.getMode"><a class="viewcode-back" href="../apiref.html#qwiic_bme280.QwiicBme280.getMode">[docs]</a>	<span class="k">def</span> <span class="nf">getMode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">			Returns the operational mode of the sensor.</span>
+
+<span class="sd">			:return: The current operational mode</span>
+<span class="sd">			:rtype: MODE_SLEEP, MODE_FORCED, or MODE_NORMAL</span>
+
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">controlData</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_CTRL_MEAS_REG</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">controlData</span> <span class="o">&amp;</span> <span class="mb">0b00000011</span></div>
+
+	<span class="c1"># Make the mode a property of this object</span>
+	<span class="n">mode</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">getMode</span><span class="p">,</span> <span class="n">setMode</span><span class="p">)</span>
+
+	<span class="c1">#----------------------------------------------------------------</span>
+	<span class="c1"># Set the standby bits in the config register</span>
+	<span class="c1"># tStandby can be:</span>
+	<span class="c1">#   0, 0.5ms</span>
+	<span class="c1">#   1, 62.5ms</span>
+	<span class="c1">#   2, 125ms</span>
+	<span class="c1">#   3, 250ms</span>
+	<span class="c1">#   4, 500ms</span>
+	<span class="c1">#   5, 1000ms</span>
+	<span class="c1">#   6, 10ms</span>
+	<span class="c1">#   7, 20ms</span>
+<div class="viewcode-block" id="QwiicBme280.setStandbyTime"><a class="viewcode-back" href="../apiref.html#qwiic_bme280.QwiicBme280.setStandbyTime">[docs]</a>	<span class="k">def</span> <span class="nf">setStandbyTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeSetting</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Set the standby bits in the BME280s config register</span>
+
+<span class="sd">		:param timeSetting: The standby time bits - acceptable values</span>
+<span class="sd">		 				0 = 0.5ms</span>
+<span class="sd">	  					1 = 62.5ms</span>
+<span class="sd">	  					2 = 125ms</span>
+<span class="sd">	  					3 = 250ms</span>
+<span class="sd">	  					4 = 500ms</span>
+<span class="sd">	  					5 = 1000ms</span>
+<span class="sd">	  					6 = 10ms</span>
+<span class="sd">	  					7 = 20ms</span>
+
+<span class="sd">		:return: No return value </span>
+
+<span class="sd">		&quot;&quot;&quot;</span>
+
+		<span class="k">if</span> <span class="n">timeSetting</span> <span class="o">&gt;</span> <span class="mb">0b111</span> <span class="p">:</span>
+			<span class="n">timeSetting</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Error check. Default to 0.5ms</span>
+		
+		<span class="n">controlData</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_CONFIG_REG</span><span class="p">)</span>
+		<span class="n">controlData</span> <span class="o">&amp;=</span> <span class="p">(</span> <span class="o">~</span><span class="p">(</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">7</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">6</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">5</span><span class="p">)</span> <span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0xff</span> <span class="c1"># Clear the 7/6/5 bits</span>
+		<span class="n">controlData</span> <span class="o">|=</span> <span class="p">(</span><span class="n">timeSetting</span> <span class="o">&lt;&lt;</span> <span class="mi">5</span><span class="p">)</span> <span class="c1"># Align with bits 7/6/5</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">writeByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_CONFIG_REG</span><span class="p">,</span> <span class="n">controlData</span><span class="p">)</span></div>
+
+	<span class="c1"># Make standby time a property</span>
+	<span class="n">standby_time</span> <span class="o">=</span> <span class="nb">property</span><span class="p">()</span>
+	<span class="n">standby_time</span> <span class="o">=</span> <span class="n">standby_time</span><span class="o">.</span><span class="n">setter</span><span class="p">(</span><span class="n">setStandbyTime</span><span class="p">)</span>
+
+	<span class="c1">#---------------------------------------------------------------- </span>
+	<span class="c1"># Set the filter bits in the config register</span>
+	<span class="c1"># filter can be off or number of FIR coefficients to use:</span>
+	<span class="c1">#   0, filter off</span>
+	<span class="c1">#   1, coefficients = 2</span>
+	<span class="c1">#   2, coefficients = 4</span>
+	<span class="c1">#   3, coefficients = 8</span>
+	<span class="c1">#   4, coefficients = 16</span>
+<div class="viewcode-block" id="QwiicBme280.setFilter"><a class="viewcode-back" href="../apiref.html#qwiic_bme280.QwiicBme280.setFilter">[docs]</a>	<span class="k">def</span> <span class="nf">setFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filterSetting</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Set the filter bits in the BME280s config register</span>
+
+<span class="sd">		:param filterSetting: The filter bits for the BME280. Acceptable values</span>
+<span class="sd">						0 = filter off</span>
+<span class="sd">	  					1 = coefficients = 2</span>
+<span class="sd">	  					2 = coefficients = 4</span>
+<span class="sd">	  					3 = coefficients = 8</span>
+<span class="sd">	  					4 = coefficients = 16</span>
+
+<span class="sd">		:return: No return value </span>
+
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">if</span> <span class="n">filterSetting</span> <span class="o">&gt;</span> <span class="mb">0b111</span> <span class="p">:</span> 
+			<span class="n">filterSetting</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Error check. Default to filter off</span>
+		
+		<span class="n">controlData</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_CONFIG_REG</span><span class="p">)</span>
+		<span class="n">controlData</span> <span class="o">&amp;=</span> <span class="p">(</span><span class="o">~</span><span class="p">(</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">4</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">3</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span> <span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="c1"># Clear the 4/3/2 bits</span>
+		<span class="n">controlData</span> <span class="o">|=</span> <span class="p">(</span><span class="n">filterSetting</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="c1"># Align with bits 4/3/2</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">writeByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_CONFIG_REG</span><span class="p">,</span> <span class="n">controlData</span><span class="p">)</span></div>
+
+	<span class="nb">filter</span> <span class="o">=</span> <span class="nb">property</span><span class="p">()</span>
+	<span class="nb">filter</span> <span class="o">=</span> <span class="nb">filter</span><span class="o">.</span><span class="n">setter</span><span class="p">(</span><span class="n">setFilter</span><span class="p">)</span>
+
+	<span class="c1">#----------------------------------------------------------------	</span>
+	<span class="c1"># Set the temperature oversample value</span>
+	<span class="c1"># 0 turns off temp sensing</span>
+	<span class="c1"># 1 to 16 are valid over sampling values</span>
+<div class="viewcode-block" id="QwiicBme280.setTempOverSample"><a class="viewcode-back" href="../apiref.html#qwiic_bme280.QwiicBme280.setTempOverSample">[docs]</a>	<span class="k">def</span> <span class="nf">setTempOverSample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">overSampleAmount</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Set the temperature oversample value</span>
+
+<span class="sd">		:param overSampleAmount: The temperature oversample value. Acceptable values</span>
+<span class="sd">				0 = turns off temp sensing</span>
+<span class="sd">				1 to 16 are valid over sampling values</span>
+
+<span class="sd">		:return: No return value </span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">overSampleAmount</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">checkSampleValue</span><span class="p">(</span><span class="n">overSampleAmount</span><span class="p">)</span> <span class="c1"># Error check</span>
+		
+		<span class="n">originalMode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMode</span><span class="p">()</span> <span class="c1"># Get the current mode so we can go back to it at the end</span>
+		
+		<span class="bp">self</span><span class="o">.</span><span class="n">setMode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MODE_SLEEP</span><span class="p">)</span> <span class="c1"># Config will only be writeable in sleep mode, so first go to sleep mode</span>
+	
+		<span class="c1"># Set the osrs_t bits (7, 6, 5) to overSampleAmount</span>
+		<span class="n">controlData</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_CTRL_MEAS_REG</span><span class="p">)</span>
+		<span class="n">controlData</span> <span class="o">&amp;=</span> <span class="p">(</span><span class="o">~</span><span class="p">(</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">7</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">6</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">5</span><span class="p">)</span> <span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="c1"># Clear bits 765</span>
+		<span class="n">controlData</span> <span class="o">|=</span> <span class="n">overSampleAmount</span> <span class="o">&lt;&lt;</span> <span class="mi">5</span> <span class="c1"># Align overSampleAmount to bits 7/6/5</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">writeByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_CTRL_MEAS_REG</span><span class="p">,</span> <span class="n">controlData</span><span class="p">)</span>
+		
+		<span class="bp">self</span><span class="o">.</span><span class="n">setMode</span><span class="p">(</span><span class="n">originalMode</span><span class="p">)</span> <span class="c1"># Return to the original user&#39;s choice</span></div>
+
+	<span class="n">tempature_oversample</span> <span class="o">=</span> <span class="nb">property</span><span class="p">()</span>
+	<span class="n">tempature_oversample</span> <span class="o">=</span> <span class="n">tempature_oversample</span><span class="o">.</span><span class="n">setter</span><span class="p">(</span><span class="n">setTempOverSample</span><span class="p">)</span>
+
+	<span class="c1"># Set the pressure oversample value</span>
+	<span class="c1"># 0 turns off pressure sensing</span>
+	<span class="c1"># 1 to 16 are valid over sampling values</span>
+<div class="viewcode-block" id="QwiicBme280.setPressureOverSample"><a class="viewcode-back" href="../apiref.html#qwiic_bme280.QwiicBme280.setPressureOverSample">[docs]</a>	<span class="k">def</span> <span class="nf">setPressureOverSample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">overSampleAmount</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Set the pressure oversample value</span>
+
+<span class="sd">		:param overSampleAmount: The pressure oversample value. Acceptable values</span>
+<span class="sd">				0 = turns off pressure sensing</span>
+<span class="sd">				1 to 16 are valid over sampling values</span>
+
+<span class="sd">		:return: No return value </span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">overSampleAmount</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">checkSampleValue</span><span class="p">(</span><span class="n">overSampleAmount</span><span class="p">)</span> <span class="c1"># Error check</span>
+		
+		<span class="n">originalMode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMode</span><span class="p">()</span> <span class="c1"># Get the current mode so we can go back to it at the end</span>
+		
+		<span class="bp">self</span><span class="o">.</span><span class="n">setMode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MODE_SLEEP</span><span class="p">)</span> <span class="c1"># Config will only be writeable in sleep mode, so first go to sleep mode</span>
+	
+		<span class="c1"># Set the osrs_p bits (4, 3, 2) to overSampleAmount</span>
+		<span class="n">controlData</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_CTRL_MEAS_REG</span><span class="p">)</span>
+		<span class="n">controlData</span> <span class="o">&amp;=</span> <span class="p">(</span><span class="o">~</span><span class="p">(</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">4</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">3</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">2</span><span class="p">)</span> <span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>  <span class="c1"># Clear bits 432</span>
+		<span class="n">controlData</span> <span class="o">|=</span> <span class="n">overSampleAmount</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span> <span class="c1"># Align overSampleAmount to bits 4/3/2</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">writeByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_CTRL_MEAS_REG</span><span class="p">,</span> <span class="n">controlData</span><span class="p">)</span>
+		
+		<span class="bp">self</span><span class="o">.</span><span class="n">setMode</span><span class="p">(</span><span class="n">originalMode</span><span class="p">)</span> <span class="c1"># Return to the original user&#39;s choice</span></div>
+
+	<span class="n">pressure_oversample</span> <span class="o">=</span> <span class="nb">property</span><span class="p">()</span>
+	<span class="n">pressure_oversample</span> <span class="o">=</span> <span class="n">pressure_oversample</span><span class="o">.</span><span class="n">setter</span><span class="p">(</span><span class="n">setPressureOverSample</span><span class="p">)</span>
+
+	<span class="c1">#----------------------------------------------------------------	</span>
+	<span class="c1"># Set the humidity oversample value</span>
+	<span class="c1"># 0 turns off humidity sensing</span>
+	<span class="c1"># 1 to 16 are valid over sampling values</span>
+<div class="viewcode-block" id="QwiicBme280.setHumidityOverSample"><a class="viewcode-back" href="../apiref.html#qwiic_bme280.QwiicBme280.setHumidityOverSample">[docs]</a>	<span class="k">def</span> <span class="nf">setHumidityOverSample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">overSampleAmount</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Set the humidity oversample value</span>
+
+<span class="sd">		:param overSampleAmount: The humidity oversample value. Acceptable values</span>
+<span class="sd">				0 = turns off humidity sensing</span>
+<span class="sd">				1 to 16 are valid over sampling values</span>
+
+<span class="sd">		:return: No return value </span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">overSampleAmount</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">checkSampleValue</span><span class="p">(</span><span class="n">overSampleAmount</span><span class="p">)</span> <span class="c1"># Error check</span>
+		
+		<span class="n">originalMode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMode</span><span class="p">()</span> <span class="c1"># Get the current mode so we can go back to it at the end</span>
+		
+		<span class="bp">self</span><span class="o">.</span><span class="n">setMode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MODE_SLEEP</span><span class="p">)</span> <span class="c1"># Config will only be writeable in sleep mode, so first go to sleep mode</span>
+	
+		<span class="c1"># Set the osrs_h bits (2, 1, 0) to overSampleAmount</span>
+		<span class="n">controlData</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_CTRL_HUMIDITY_REG</span><span class="p">)</span>
+		<span class="n">controlData</span> <span class="o">&amp;=</span> <span class="p">(</span><span class="o">~</span><span class="p">(</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">0</span><span class="p">)</span> <span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="c1"># Clear bits 2/1/0</span>
+		<span class="n">controlData</span> <span class="o">|=</span> <span class="n">overSampleAmount</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span> <span class="c1"># Align overSampleAmount to bits 2/1/0</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">writeByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_CTRL_HUMIDITY_REG</span><span class="p">,</span> <span class="n">controlData</span><span class="p">)</span>
+	
+		<span class="bp">self</span><span class="o">.</span><span class="n">setMode</span><span class="p">(</span><span class="n">originalMode</span><span class="p">)</span> <span class="c1"># Return to the original user&#39;s choice</span></div>
+
+	<span class="n">humidity_oversample</span> <span class="o">=</span> <span class="nb">property</span><span class="p">()</span>
+	<span class="n">humidity_oversample</span> <span class="o">=</span> <span class="n">humidity_oversample</span><span class="o">.</span><span class="n">setter</span><span class="p">(</span><span class="n">setHumidityOverSample</span><span class="p">)</span>
+
+	<span class="c1">#----------------------------------------------------------------	</span>
+	<span class="c1"># Validates an over sample value</span>
+	<span class="c1"># Allowed values are 0 to 16</span>
+	<span class="c1"># These are used in the humidty, pressure, and temp oversample functions</span>
+<div class="viewcode-block" id="QwiicBme280.checkSampleValue"><a class="viewcode-back" href="../apiref.html#qwiic_bme280.QwiicBme280.checkSampleValue">[docs]</a>	<span class="k">def</span> <span class="nf">checkSampleValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">userValue</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Validates an over sample value</span>
+
+<span class="sd">		:param userValue: The oversample value to check. </span>
+<span class="sd">				Allowed values are 0 to 16</span>
+<span class="sd">				These are used in the humidty, pressure, and temp oversample functions</span>
+
+<span class="sd">		:return: Valid oversample value</span>
+<span class="sd">		:rtype: int</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">_valueMap</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">16</span><span class="p">:</span> <span class="mi">5</span><span class="p">}</span>
+
+		<span class="k">return</span> <span class="n">_valueMap</span><span class="p">[</span><span class="n">userValue</span><span class="p">]</span> <span class="k">if</span> <span class="n">userValue</span> <span class="ow">in</span> <span class="n">_valueMap</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">else</span> <span class="mi">1</span></div>
+		
+	<span class="c1"># Check the measuring bit and return true while device is taking measurement</span>
+<div class="viewcode-block" id="QwiicBme280.isMeasuring"><a class="viewcode-back" href="../apiref.html#qwiic_bme280.QwiicBme280.isMeasuring">[docs]</a>	<span class="k">def</span> <span class="nf">isMeasuring</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Return if the sensor is measuring or not</span>
+
+<span class="sd">		:return: True if the sensor is measuring, else False</span>
+<span class="sd">		:rvalue: boolean</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+
+		<span class="n">stat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_STAT_REG</span><span class="p">)</span>
+		<span class="k">return</span>  <span class="kc">True</span> <span class="k">if</span> <span class="n">stat</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">3</span><span class="p">)</span> <span class="k">else</span> <span class="kc">False</span> <span class="c1"># If the measuring bit (3) is set, return true</span></div>
+
+	
+	<span class="c1"># Strictly resets.  Run .begin() afterwards</span>
+<div class="viewcode-block" id="QwiicBme280.reset"><a class="viewcode-back" href="../apiref.html#qwiic_bme280.QwiicBme280.reset">[docs]</a>	<span class="k">def</span> <span class="nf">reset</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Resets the sensor. If called, the begin method must be called before </span>
+<span class="sd">		using the sensor.</span>
+
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">writeByte</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_RST_REG</span><span class="p">,</span> <span class="mh">0xB6</span><span class="p">)</span></div>
+
+	<span class="c1"># ****************************************************************************# </span>
+	<span class="c1"># </span>
+	<span class="c1">#   Pressure Section</span>
+	<span class="c1"># </span>
+	<span class="c1"># ****************************************************************************# </span>
+<div class="viewcode-block" id="QwiicBme280.readFloatPressure"><a class="viewcode-back" href="../apiref.html#qwiic_bme280.QwiicBme280.readFloatPressure">[docs]</a>	<span class="k">def</span> <span class="nf">readFloatPressure</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Returns pressure in Pa as unsigned 32 bit integer in Q24.8 format (24 integer bits and 8 fractional bits).</span>
+<span class="sd">		Output value of &quot;24674867&quot; represents 24674867/256 = 96386.2 Pa = 963.862 hPa</span>
+
+<span class="sd">		:return: Pressure in Pa</span>
+<span class="sd">		:rtype: integer</span>
+
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="c1">#  Returns pressure in Pa as unsigned 32 bit integer in Q24.8 format (24 integer bits and 8 fractional bits).</span>
+		<span class="c1">#  Output value of &quot;24674867&quot; represents 24674867/256 = 96386.2 Pa = 963.862 hPa</span>
+
+		<span class="n">buffer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readBlock</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_PRESSURE_MSB_REG</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+		<span class="n">adc_P</span> <span class="o">=</span> <span class="p">(</span><span class="n">buffer</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="mi">12</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">buffer</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">|</span> <span class="p">((</span><span class="n">buffer</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x0F</span><span class="p">)</span>
+		
+		<span class="n">var1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">t_fine</span> <span class="o">-</span> <span class="mi">128000</span>
+		<span class="n">var2</span> <span class="o">=</span> <span class="n">var1</span> <span class="o">*</span> <span class="n">var1</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_P6&quot;</span><span class="p">]</span>
+		<span class="n">var2</span> <span class="o">=</span> <span class="n">var2</span> <span class="o">+</span> <span class="p">((</span><span class="n">var1</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_P5&quot;</span><span class="p">])</span><span class="o">&lt;&lt;</span><span class="mi">17</span><span class="p">)</span>
+		<span class="n">var2</span> <span class="o">=</span> <span class="n">var2</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_P4&quot;</span><span class="p">]</span> <span class="o">&lt;&lt;</span><span class="mi">35</span><span class="p">)</span>
+		<span class="n">var1</span> <span class="o">=</span> <span class="p">((</span><span class="n">var1</span> <span class="o">*</span> <span class="n">var1</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_P3&quot;</span><span class="p">])</span><span class="o">&gt;&gt;</span><span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="p">((</span><span class="n">var1</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_P2&quot;</span><span class="p">])</span><span class="o">&lt;&lt;</span><span class="mi">12</span><span class="p">)</span>
+		<span class="n">var1</span> <span class="o">=</span> <span class="p">(</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">47</span><span class="p">)</span> <span class="o">+</span> <span class="n">var1</span> <span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_P1&quot;</span><span class="p">])</span><span class="o">&gt;&gt;</span><span class="mi">33</span>
+
+		<span class="k">if</span> <span class="n">var1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+			<span class="k">return</span> <span class="mi">0</span>  <span class="c1">#  avoid exception caused by division by zero</span>
+
+		<span class="n">p_acc</span> <span class="o">=</span> <span class="mi">1048576</span> <span class="o">-</span> <span class="n">adc_P</span>
+		<span class="n">p_acc</span> <span class="o">=</span> <span class="p">(((</span><span class="n">p_acc</span><span class="o">&lt;&lt;</span><span class="mi">31</span><span class="p">)</span> <span class="o">-</span> <span class="n">var2</span><span class="p">)</span><span class="o">*</span><span class="mi">3125</span><span class="p">)</span><span class="o">//</span><span class="n">var1</span>
+
+		<span class="n">var1</span> <span class="o">=</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_P9&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">p_acc</span><span class="o">&gt;&gt;</span><span class="mi">13</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">p_acc</span><span class="o">&gt;&gt;</span><span class="mi">13</span><span class="p">))</span> <span class="o">&gt;&gt;</span> <span class="mi">25</span>
+		<span class="n">var2</span> <span class="o">=</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_P8&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">p_acc</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">19</span>
+		<span class="n">p_acc</span> <span class="o">=</span> <span class="p">((</span><span class="n">p_acc</span> <span class="o">+</span> <span class="n">var1</span> <span class="o">+</span> <span class="n">var2</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_P7&quot;</span><span class="p">])</span><span class="o">&lt;&lt;</span><span class="mi">4</span><span class="p">)</span>
+		
+		<span class="k">return</span> <span class="n">p_acc</span> <span class="o">/</span> <span class="mf">256.0</span></div>
+		
+	<span class="n">pressure</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">readFloatPressure</span><span class="p">)</span>
+
+	<span class="c1">#----------------------------------------------------------------	</span>
+	<span class="c1"># Sets the internal variable _referencePressure so the </span>
+<div class="viewcode-block" id="QwiicBme280.setReferencePressure"><a class="viewcode-back" href="../apiref.html#qwiic_bme280.QwiicBme280.setReferencePressure">[docs]</a>	<span class="k">def</span> <span class="nf">setReferencePressure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">refPressure</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Sets the referance pressure for the sensor measurments.</span>
+
+<span class="sd">		:param refPressure: The referance pressure to use.</span>
+
+<span class="sd">		:return: No return value </span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_referencePressure</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">refPressure</span><span class="p">)</span></div>
+	
+	<span class="c1"># Return the local reference pressure</span>
+<div class="viewcode-block" id="QwiicBme280.getReferencePressure"><a class="viewcode-back" href="../apiref.html#qwiic_bme280.QwiicBme280.getReferencePressure">[docs]</a>	<span class="k">def</span> <span class="nf">getReferencePressure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Get the current reference pressure for the sensor.</span>
+
+<span class="sd">		:return: The current reference pressure.</span>
+<span class="sd">		:rtype: float</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_referencePressure</span></div>
+	
+	<span class="n">reference_pressure</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">getReferencePressure</span><span class="p">,</span> <span class="n">setReferencePressure</span><span class="p">)</span>
+
+	<span class="c1">#----------------------------------------------------------------	</span>
+<div class="viewcode-block" id="QwiicBme280.readFloatAltitudeMeters"><a class="viewcode-back" href="../apiref.html#qwiic_bme280.QwiicBme280.readFloatAltitudeMeters">[docs]</a>	<span class="k">def</span> <span class="nf">readFloatAltitudeMeters</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Return the current Altitude in meters</span>
+
+<span class="sd">		:return: The current altitude in meters</span>
+<span class="sd">		:rtype: float</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="c1"># heightOutput = ((float)-45846.2)*(pow(((float)readFloatPressure()/(float)_referencePressure), 0.190263) - (float)1);</span>
+
+		<span class="k">return</span> <span class="p">(</span><span class="o">-</span><span class="mf">44330.77</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">readFloatPressure</span><span class="p">()</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">_referencePressure</span><span class="p">),</span> <span class="mf">0.190263</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span> <span class="c1"># Corrected, see issue 30</span></div>
+	
+	<span class="n">altitude_meters</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">readFloatAltitudeMeters</span><span class="p">)</span>
+
+	<span class="c1">#----------------------------------------------------------------</span>
+<div class="viewcode-block" id="QwiicBme280.readFloatAltitudeFeet"><a class="viewcode-back" href="../apiref.html#qwiic_bme280.QwiicBme280.readFloatAltitudeFeet">[docs]</a>	<span class="k">def</span> <span class="nf">readFloatAltitudeFeet</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Return the current Altitude in feet</span>
+
+<span class="sd">		:return: The current altitude in feets</span>
+<span class="sd">		:rtype: float</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">readFloatAltitudeMeters</span><span class="p">()</span> <span class="o">*</span> <span class="mf">3.28084</span></div>
+	
+	<span class="n">altitude_feet</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">readFloatAltitudeFeet</span><span class="p">)</span>
+
+
+	<span class="c1"># ****************************************************************************# </span>
+	<span class="c1"># </span>
+	<span class="c1">#   Humidity Section</span>
+	<span class="c1"># </span>
+	<span class="c1"># ****************************************************************************# </span>
+<div class="viewcode-block" id="QwiicBme280.readFloatHumidity"><a class="viewcode-back" href="../apiref.html#qwiic_bme280.QwiicBme280.readFloatHumidity">[docs]</a>	<span class="k">def</span> <span class="nf">readFloatHumidity</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Returns humidity in %RH as unsigned 32 bit integer in Q22. 10 format (22 integer and 10 fractional bits).</span>
+<span class="sd">		Output value of &quot;47445&quot; represents 47445/1024 = 46. 33 %RH</span>
+
+<span class="sd">		:return: The current humidity value</span>
+<span class="sd">		:rtype: float</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="c1">#  Returns humidity in %RH as unsigned 32 bit integer in Q22. 10 format (22 integer and 10 fractional bits).</span>
+		<span class="c1">#  Output value of &quot;47445&quot; represents 47445/1024 = 46. 33 %RH</span>
+
+		<span class="n">buffer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readBlock</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_HUMIDITY_MSB_REG</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+		<span class="n">adc_H</span> <span class="o">=</span> <span class="p">(</span><span class="n">buffer</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">|</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+		
+		<span class="n">var1</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t_fine</span> <span class="o">-</span> <span class="mi">76800</span><span class="p">)</span>
+		<span class="n">var1</span> <span class="o">=</span> <span class="p">(((((</span><span class="n">adc_H</span> <span class="o">&lt;&lt;</span> <span class="mi">14</span><span class="p">)</span> <span class="o">-</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_H4&quot;</span><span class="p">])</span> <span class="o">&lt;&lt;</span> <span class="mi">20</span><span class="p">)</span> <span class="o">-</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_H5&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">var1</span><span class="p">))</span> <span class="o">+</span> \
+			<span class="p">(</span><span class="mi">16384</span><span class="p">))</span> <span class="o">&gt;&gt;</span> <span class="mi">15</span><span class="p">)</span> <span class="o">*</span> <span class="p">(((((((</span><span class="n">var1</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_H6&quot;</span><span class="p">]))</span> <span class="o">&gt;&gt;</span> <span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="p">(((</span><span class="n">var1</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_H3&quot;</span><span class="p">]))</span> <span class="o">&gt;&gt;</span> <span class="mi">11</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">32768</span><span class="p">)))</span> <span class="o">&gt;&gt;</span> <span class="mi">10</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2097152</span><span class="p">))</span> <span class="o">*</span> \
+			<span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_H2&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="mi">8192</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">14</span><span class="p">))</span>
+		<span class="n">var1</span> <span class="o">=</span> <span class="p">(</span><span class="n">var1</span> <span class="o">-</span> <span class="p">(((((</span><span class="n">var1</span> <span class="o">&gt;&gt;</span> <span class="mi">15</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">var1</span> <span class="o">&gt;&gt;</span> <span class="mi">15</span><span class="p">))</span> <span class="o">&gt;&gt;</span> <span class="mi">7</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_H1&quot;</span><span class="p">]))</span> <span class="o">&gt;&gt;</span> <span class="mi">4</span><span class="p">))</span>
+		<span class="n">var1</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">var1</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span>  <span class="n">var1</span> 
+		<span class="n">var1</span> <span class="o">=</span> <span class="mi">419430400</span> <span class="k">if</span> <span class="n">var1</span> <span class="o">&gt;</span> <span class="mi">419430400</span> <span class="k">else</span> <span class="n">var1</span>
+
+	
+		<span class="k">return</span> <span class="p">(</span><span class="n">var1</span><span class="o">&gt;&gt;</span><span class="mi">12</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1024.0</span></div>
+
+	<span class="n">humidity</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">readFloatHumidity</span><span class="p">)</span>
+
+	<span class="c1"># ****************************************************************************# </span>
+	<span class="c1"># </span>
+	<span class="c1">#   Temperature Section</span>
+	<span class="c1"># </span>
+	<span class="c1"># ****************************************************************************# </span>
+	
+<div class="viewcode-block" id="QwiicBme280.readTempC"><a class="viewcode-back" href="../apiref.html#qwiic_bme280.QwiicBme280.readTempC">[docs]</a>	<span class="k">def</span> <span class="nf">readTempC</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Returns temperature in DegC, resolution is 0.01 DegC. Output value of &quot;5123&quot; equals 51.23 DegC.</span>
+<span class="sd">		 t_fine carries fine temperature as global value</span>
+
+<span class="sd">		:return: The current temperature in C.</span>
+<span class="sd">		:rtype: float</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="c1">#  Returns temperature in DegC, resolution is 0.01 DegC. Output value of &quot;5123&quot; equals 51.23 DegC.</span>
+		<span class="c1">#  t_fine carries fine temperature as global value</span>
+	
+		<span class="c1"># get the reading (adc_T);</span>
+
+		<span class="n">buffer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c</span><span class="o">.</span><span class="n">readBlock</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BME280_TEMPERATURE_MSB_REG</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+		<span class="n">adc_T</span> <span class="o">=</span> <span class="p">(</span><span class="n">buffer</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="mi">12</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">buffer</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">|</span> <span class="p">((</span><span class="n">buffer</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x0F</span><span class="p">)</span>
+	
+		<span class="c1"># By datasheet, calibrate</span>
+	
+		<span class="n">var1</span> <span class="o">=</span> <span class="p">((((</span><span class="n">adc_T</span><span class="o">&gt;&gt;</span><span class="mi">3</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_T1&quot;</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">)))</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_T2&quot;</span><span class="p">]))</span> <span class="o">&gt;&gt;</span> <span class="mi">11</span>
+		<span class="n">var2</span> <span class="o">=</span> <span class="p">(((((</span><span class="n">adc_T</span><span class="o">&gt;&gt;</span><span class="mi">4</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_T1&quot;</span><span class="p">]))</span> <span class="o">*</span> <span class="p">((</span><span class="n">adc_T</span><span class="o">&gt;&gt;</span><span class="mi">4</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_T1&quot;</span><span class="p">])))</span> <span class="o">&gt;&gt;</span> <span class="mi">12</span><span class="p">)</span> <span class="o">*</span> \
+				<span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calibration</span><span class="p">[</span><span class="s2">&quot;dig_T3&quot;</span><span class="p">]))</span> <span class="o">&gt;&gt;</span> <span class="mi">14</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">t_fine</span> <span class="o">=</span> <span class="n">var1</span> <span class="o">+</span> <span class="n">var2</span>
+		<span class="n">output</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t_fine</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">128</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span>
+	
+		<span class="k">return</span> <span class="n">output</span> <span class="o">/</span> <span class="mi">100</span> <span class="o">+</span> <span class="n">_settings</span><span class="p">[</span><span class="s2">&quot;tempCorrection&quot;</span><span class="p">]</span></div>
+		
+	<span class="n">temperature_celsius</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">readTempC</span><span class="p">)</span>
+
+	<span class="c1">#----------------------------------------------------------------	</span>
+<div class="viewcode-block" id="QwiicBme280.readTempF"><a class="viewcode-back" href="../apiref.html#qwiic_bme280.QwiicBme280.readTempF">[docs]</a>	<span class="k">def</span> <span class="nf">readTempF</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Returns temperature in Deg F, resolution is 0.01 DegF. Output value of &quot;5123&quot; equals 51.23 DegF.</span>
+<span class="sd">		 t_fine carries fine temperature as global value</span>
+
+<span class="sd">		:return: The current temperature in F.</span>
+<span class="sd">		:rtype: float</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">readTempC</span><span class="p">()</span>
+		<span class="k">return</span> <span class="p">(</span><span class="n">output</span> <span class="o">*</span> <span class="mi">9</span><span class="p">)</span> <span class="o">/</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">32</span></div>
+
+	<span class="n">temperature_fahrenheit</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">readTempF</span><span class="p">)</span>
+
+	<span class="c1"># ****************************************************************************# </span>
+	<span class="c1"># </span>
+	<span class="c1">#   Dew point Section</span>
+	<span class="c1"># </span>
+	<span class="c1"># ****************************************************************************# </span>
+	<span class="c1">#  Returns Dew point in DegC</span>
+
+<div class="viewcode-block" id="QwiicBme280.dewPointC"><a class="viewcode-back" href="../apiref.html#qwiic_bme280.QwiicBme280.dewPointC">[docs]</a>	<span class="k">def</span> <span class="nf">dewPointC</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Returns the Dew point in degrees C. </span>
+
+<span class="sd">		:return: The current dewpoint in C.</span>
+<span class="sd">		:rtype: float</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">celsius</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">readTempC</span><span class="p">()</span> 
+		<span class="n">humidity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">readFloatHumidity</span><span class="p">()</span>
+		<span class="c1">#  (1) Saturation Vapor Pressure = ESGG(T)</span>
+
+		<span class="n">RATIO</span> <span class="o">=</span> <span class="mf">373.15</span> <span class="o">/</span> <span class="p">(</span><span class="mf">273.15</span> <span class="o">+</span> <span class="n">celsius</span><span class="p">)</span>
+		<span class="n">RHS</span> <span class="o">=</span> <span class="o">-</span><span class="mf">7.90298</span> <span class="o">*</span> <span class="p">(</span><span class="n">RATIO</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+		<span class="n">RHS</span> <span class="o">+=</span> <span class="mf">5.02808</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">RATIO</span><span class="p">)</span>
+		<span class="n">RHS</span> <span class="o">+=</span> <span class="o">-</span><span class="mf">1.3816e-7</span> <span class="o">*</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="p">(</span><span class="mf">11.344</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="n">RATIO</span> <span class="p">)))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> 
+		<span class="n">RHS</span> <span class="o">+=</span> <span class="mf">8.1328e-3</span> <span class="o">*</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mf">3.49149</span> <span class="o">*</span> <span class="p">(</span><span class="n">RATIO</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+		<span class="n">RHS</span> <span class="o">+=</span> <span class="n">math</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">1013.246</span><span class="p">)</span>
+		       <span class="c1">#  factor -3 is to adjust units - Vapor Pressure SVP * humidity</span>
+		<span class="n">VP</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">RHS</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">humidity</span>
+		       <span class="c1">#  (2) DEWPOINT = F(Vapor Pressure)</span>
+		<span class="n">T</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">VP</span><span class="o">/</span><span class="mf">0.61078</span><span class="p">)</span>   <span class="c1">#  temp var</span>
+		<span class="k">return</span> <span class="p">(</span><span class="mf">241.88</span> <span class="o">*</span> <span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">17.558</span> <span class="o">-</span> <span class="n">T</span><span class="p">)</span></div>
+	
+	<span class="n">dewpoint_celsius</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">dewPointC</span><span class="p">)</span>
+
+	<span class="c1">#----------------------------------------------------------------	</span>
+	<span class="c1">#  Returns Dew point in DegF</span>
+<div class="viewcode-block" id="QwiicBme280.dewPointF"><a class="viewcode-back" href="../apiref.html#qwiic_bme280.QwiicBme280.dewPointF">[docs]</a>	<span class="k">def</span> <span class="nf">dewPointF</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Returns the Dew point in degrees F. </span>
+
+<span class="sd">		:return: The current dewpoint in F.</span>
+<span class="sd">		:rtype: float</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dewPointC</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.8</span> <span class="o">+</span> <span class="mi">32</span> <span class="c1"># Convert C to F</span></div>
+
+	<span class="n">dewpoint_fahrenheit</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">dewPointF</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, SparkFun Electronics
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
