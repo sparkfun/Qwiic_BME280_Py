@@ -217,28 +217,53 @@ class QwiicBme280(object):
         if chipID not in _validChipIDs:
             print("Invalid Chip ID: 0x%.2X" % chipID)
             return False
+        
+
+        def unsigned_short_to_signed_short(n): 
+            """ Converts a 2 byte unsigned short to signed short (uint16_t -> int16_t)
+                
+                :param n: Unsigned short (uint16_t) to convert
+                
+                :returns: Signed short (int16_t)
+            """
+            assert n >= 0, "Expected number to be unsigned (uint16_t), n>=0"
+            assert n <= 2**16 - 1,"Expected number to be short (int16_t), n <= 2^16 - 1"
+
+            return n - 2**16 if n >= 2**15 else n
+
+        def unsigned_char_to_signed_char(n):
+            """  Converts an unsigned char to signed char (uint8_t -> int8_t)
+                
+                :param n: Unsigned char (uint8_t) to convert
+                
+                :returns: Signed char (int8_t)
+            """
+            assert n >= 0, "Expected number to be unsigned (uint8_t), n>=0"
+            assert n <= 2**8 - 1,"Expected number to be char (int8_t), n <= 2^8 - 1"
+
+            return n - 2**8 if n >= 2**7 else n
 
         # Reading all compensation data, range 0x88:A1, 0xE1:E7
         self.calibration["dig_T1"] = (self._i2c.readByte(self.address, self.BME280_DIG_T1_MSB_REG) << 8) + self._i2c.readByte(self.address, self.BME280_DIG_T1_LSB_REG)
-        self.calibration["dig_T2"] = (self._i2c.readByte(self.address, self.BME280_DIG_T2_MSB_REG) << 8) + self._i2c.readByte(self.address, self.BME280_DIG_T2_LSB_REG)
-        self.calibration["dig_T3"] = (self._i2c.readByte(self.address, self.BME280_DIG_T3_MSB_REG) << 8) + self._i2c.readByte(self.address, self.BME280_DIG_T3_LSB_REG)
+        self.calibration["dig_T2"] = unsigned_short_to_signed_short((self._i2c.readByte(self.address, self.BME280_DIG_T2_MSB_REG) << 8) + self._i2c.readByte(self.address, self.BME280_DIG_T2_LSB_REG))
+        self.calibration["dig_T3"] = unsigned_short_to_signed_short((self._i2c.readByte(self.address, self.BME280_DIG_T3_MSB_REG) << 8) + self._i2c.readByte(self.address, self.BME280_DIG_T3_LSB_REG))
 
         self.calibration["dig_P1"] = (self._i2c.readByte(self.address, self.BME280_DIG_P1_MSB_REG) << 8) + self._i2c.readByte(self.address, self.BME280_DIG_P1_LSB_REG)
-        self.calibration["dig_P2"] = (self._i2c.readByte(self.address, self.BME280_DIG_P2_MSB_REG) << 8) + self._i2c.readByte(self.address, self.BME280_DIG_P2_LSB_REG)
-        self.calibration["dig_P3"] = (self._i2c.readByte(self.address, self.BME280_DIG_P3_MSB_REG) << 8) + self._i2c.readByte(self.address, self.BME280_DIG_P3_LSB_REG)
-        self.calibration["dig_P4"] = (self._i2c.readByte(self.address, self.BME280_DIG_P4_MSB_REG) << 8) + self._i2c.readByte(self.address, self.BME280_DIG_P4_LSB_REG)
-        self.calibration["dig_P5"] = (self._i2c.readByte(self.address, self.BME280_DIG_P5_MSB_REG) << 8) + self._i2c.readByte(self.address, self.BME280_DIG_P5_LSB_REG)
-        self.calibration["dig_P6"] = (self._i2c.readByte(self.address, self.BME280_DIG_P6_MSB_REG) << 8) + self._i2c.readByte(self.address, self.BME280_DIG_P6_LSB_REG)
-        self.calibration["dig_P7"] = (self._i2c.readByte(self.address, self.BME280_DIG_P7_MSB_REG) << 8) + self._i2c.readByte(self.address, self.BME280_DIG_P7_LSB_REG)
-        self.calibration["dig_P8"] = (self._i2c.readByte(self.address, self.BME280_DIG_P8_MSB_REG) << 8) + self._i2c.readByte(self.address, self.BME280_DIG_P8_LSB_REG)
-        self.calibration["dig_P9"] = (self._i2c.readByte(self.address, self.BME280_DIG_P9_MSB_REG) << 8) + self._i2c.readByte(self.address, self.BME280_DIG_P9_LSB_REG)
+        self.calibration["dig_P2"] = unsigned_short_to_signed_short((self._i2c.readByte(self.address, self.BME280_DIG_P2_MSB_REG) << 8) + self._i2c.readByte(self.address, self.BME280_DIG_P2_LSB_REG))
+        self.calibration["dig_P3"] = unsigned_short_to_signed_short((self._i2c.readByte(self.address, self.BME280_DIG_P3_MSB_REG) << 8) + self._i2c.readByte(self.address, self.BME280_DIG_P3_LSB_REG))
+        self.calibration["dig_P4"] = unsigned_short_to_signed_short((self._i2c.readByte(self.address, self.BME280_DIG_P4_MSB_REG) << 8) + self._i2c.readByte(self.address, self.BME280_DIG_P4_LSB_REG))
+        self.calibration["dig_P5"] = unsigned_short_to_signed_short((self._i2c.readByte(self.address, self.BME280_DIG_P5_MSB_REG) << 8) + self._i2c.readByte(self.address, self.BME280_DIG_P5_LSB_REG))
+        self.calibration["dig_P6"] = unsigned_short_to_signed_short((self._i2c.readByte(self.address, self.BME280_DIG_P6_MSB_REG) << 8) + self._i2c.readByte(self.address, self.BME280_DIG_P6_LSB_REG))
+        self.calibration["dig_P7"] = unsigned_short_to_signed_short((self._i2c.readByte(self.address, self.BME280_DIG_P7_MSB_REG) << 8) + self._i2c.readByte(self.address, self.BME280_DIG_P7_LSB_REG))
+        self.calibration["dig_P8"] = unsigned_short_to_signed_short((self._i2c.readByte(self.address, self.BME280_DIG_P8_MSB_REG) << 8) + self._i2c.readByte(self.address, self.BME280_DIG_P8_LSB_REG))
+        self.calibration["dig_P9"] = unsigned_short_to_signed_short((self._i2c.readByte(self.address, self.BME280_DIG_P9_MSB_REG) << 8) + self._i2c.readByte(self.address, self.BME280_DIG_P9_LSB_REG))
 
         self.calibration["dig_H1"] = self._i2c.readByte(self.address, self.BME280_DIG_H1_REG)
-        self.calibration["dig_H2"] = (self._i2c.readByte(self.address, self.BME280_DIG_H2_MSB_REG) << 8) + self._i2c.readByte(self.address, self.BME280_DIG_H2_LSB_REG)
+        self.calibration["dig_H2"] = unsigned_short_to_signed_short((self._i2c.readByte(self.address, self.BME280_DIG_H2_MSB_REG) << 8) + self._i2c.readByte(self.address, self.BME280_DIG_H2_LSB_REG))
         self.calibration["dig_H3"] = self._i2c.readByte(self.address, self.BME280_DIG_H3_REG)
-        self.calibration["dig_H4"] = (self._i2c.readByte(self.address, self.BME280_DIG_H4_MSB_REG) << 4) + (self._i2c.readByte(self.address, self.BME280_DIG_H4_LSB_REG) & 0x0F)
-        self.calibration["dig_H5"] = (self._i2c.readByte(self.address, self.BME280_DIG_H5_MSB_REG) << 4) + ((self._i2c.readByte(self.address, self.BME280_DIG_H4_LSB_REG) >> 4) & 0x0F)
-        self.calibration["dig_H6"] = self._i2c.readByte(self.address, self.BME280_DIG_H6_REG)
+        self.calibration["dig_H4"] = unsigned_short_to_signed_short((self._i2c.readByte(self.address, self.BME280_DIG_H4_MSB_REG) << 4) + (self._i2c.readByte(self.address, self.BME280_DIG_H4_LSB_REG) & 0x0F))
+        self.calibration["dig_H5"] = unsigned_short_to_signed_short((self._i2c.readByte(self.address, self.BME280_DIG_H5_MSB_REG) << 4) + ((self._i2c.readByte(self.address, self.BME280_DIG_H4_LSB_REG) >> 4) & 0x0F))
+        self.calibration["dig_H6"] = unsigned_char_to_signed_char(self._i2c.readByte(self.address, self.BME280_DIG_H6_REG))
 
         # Most of the time the sensor will be init with default values
         # But in case user has old/deprecated code, use the _settings.x values
