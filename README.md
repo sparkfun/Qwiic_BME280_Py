@@ -102,7 +102,7 @@ def runExample():
 	print("\nSparkFun BME280 Sensor  Example 1\n")
 	mySensor = qwiic_bme280.QwiicBme280()
 
-	if mySensor.isConnected() == False:
+	if not mySensor.connected:
 		print("The Qwiic BME280 device isn't connected to the system. Please check your connection", \
 			file=sys.stderr)
 		return
