@@ -548,6 +548,9 @@ class QwiicBme280(object):
         #  Returns pressure in Pa as unsigned 32 bit integer in Q24.8 format (24 integer bits and 8 fractional bits).
         #  Output value of "24674867" represents 24674867/256 = 96386.2 Pa = 963.862 hPa
 
+        # Read temperature to update t_fine
+        self.get_temperature_celsius()
+
         data_buffer = self._i2c.readBlock(self.address, self.BME280_PRESSURE_MSB_REG, 3)
         adc_P = (data_buffer[0] << 12) | (data_buffer[1] << 4) | ((data_buffer[2] >> 4) & 0x0F)
 
@@ -638,6 +641,9 @@ class QwiicBme280(object):
         """
         #  Returns humidity in %RH as unsigned 32 bit integer in Q22. 10 format (22 integer and 10 fractional bits).
         #  Output value of "47445" represents 47445/1024 = 46. 33 %RH
+
+        # Read temperature to update t_fine
+        self.get_temperature_celsius()
 
         data_buffer = self._i2c.readBlock(self.address, self.BME280_HUMIDITY_MSB_REG, 2)
         adc_H = (data_buffer[0] << 8) | data_buffer[1]
