@@ -538,15 +538,12 @@ class QwiicBme280(object):
     # ****************************************************************************#
     def read_pressure( self ):
         """
-        Returns pressure in Pa as unsigned 32 bit integer in Q24.8 format (24 integer bits and 8 fractional bits).
-        Output value of "24674867" represents 24674867/256 = 96386.2 Pa = 963.862 hPa
+        Returns pressure in Pa.
 
         :return: Pressure in Pa
-        :rtype: integer
+        :rtype: float
 
         """
-        #  Returns pressure in Pa as unsigned 32 bit integer in Q24.8 format (24 integer bits and 8 fractional bits).
-        #  Output value of "24674867" represents 24674867/256 = 96386.2 Pa = 963.862 hPa
 
         # Read temperature to update t_fine
         self.get_temperature_celsius()
@@ -607,7 +604,6 @@ class QwiicBme280(object):
         :return: The current altitude in meters
         :rtype: float
         """
-        # heightOutput = ((float)-45846.2)*(pow(((float)readFloatPressure()/(float)_referencePressure), 0.190263) - (float)1);
 
         return (-44330.77)*(math.pow((self.pressure/self._referencePressure), 0.190263) - 1.0) # Corrected, see issue 30
 
@@ -633,14 +629,11 @@ class QwiicBme280(object):
     # ****************************************************************************#
     def read_humidity( self ):
         """
-        Returns humidity in %RH as unsigned 32 bit integer in Q22. 10 format (22 integer and 10 fractional bits).
-        Output value of "47445" represents 47445/1024 = 46. 33 %RH
+        Returns humidity in %RH.
 
         :return: The current humidity value
         :rtype: float
         """
-        #  Returns humidity in %RH as unsigned 32 bit integer in Q22. 10 format (22 integer and 10 fractional bits).
-        #  Output value of "47445" represents 47445/1024 = 46. 33 %RH
 
         # Read temperature to update t_fine
         self.get_temperature_celsius()
@@ -669,14 +662,12 @@ class QwiicBme280(object):
 
     def get_temperature_celsius( self ):
         """
-        Returns temperature in DegC, resolution is 0.01 DegC. Output value of "5123" equals 51.23 DegC.
-         t_fine carries fine temperature as global value
+        Returns temperature in DegC and updates t_fine (needed for accurate
+        pressure and humidity measurements)
 
         :return: The current temperature in C.
         :rtype: float
         """
-        #  Returns temperature in DegC, resolution is 0.01 DegC. Output value of "5123" equals 51.23 DegC.
-        #  t_fine carries fine temperature as global value
 
         # get the reading (adc_T);
 
@@ -698,8 +689,8 @@ class QwiicBme280(object):
     #----------------------------------------------------------------
     def get_temperature_fahrenheit( self ):
         """
-        Returns temperature in Deg F, resolution is 0.01 DegF. Output value of "5123" equals 51.23 DegF.
-         t_fine carries fine temperature as global value
+        Returns temperature in Deg F and updates t_fine (needed for accurate
+        pressure and humidity measurements)
 
         :return: The current temperature in F.
         :rtype: float
