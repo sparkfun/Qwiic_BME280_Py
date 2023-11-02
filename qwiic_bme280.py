@@ -60,6 +60,7 @@ New to qwiic? Take a look at the entire [SparkFun qwiic ecosystem](https://www.s
 #-----------------------------------------------------------------------------
 from __future__ import print_function
 import math
+import time
 import qwiic_i2c
 
 # Define the device name and I2C addresses. These are set in the class defintion
@@ -275,6 +276,12 @@ class QwiicBme280(object):
         self.set_tempature_oversample(_settings["tempOverSample"]) # Default of 1x oversample
 
         self.set_mode(self.MODE_NORMAL) #Go!
+
+        # Wait for first measurement to come through. According to the second
+        # equation in section 9.1 of the datasheet, it should take no longer
+        # than 9.3ms to finish the first measurement at 1x oversampling on all
+        # sensors. So wat 10ms to be safe
+        time.sleep(0.01)
 
         return True
 
