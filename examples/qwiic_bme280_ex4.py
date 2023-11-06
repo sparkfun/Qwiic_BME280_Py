@@ -39,7 +39,6 @@
 # Example 4 - port of the Arduino example 4
 #
 
-from __future__ import print_function
 import qwiic_bme280
 import time
 import sys
