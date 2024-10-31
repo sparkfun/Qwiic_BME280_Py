@@ -5,5 +5,5 @@
     "deps": [
       ["github:sparkfun/Qwiic_I2C_Py", "mip-test"]
     ],
-    "version": "0.2"
+    "version": "0.9.1"
 }
