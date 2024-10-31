@@ -3,7 +3,7 @@
       ["qwiic_bme280.py", "github:sparkfun/Qwiic_BME280_Py/qwiic_bme280.py"]
     ],
     "deps": [
-      ["github:sparkfun/Qwiic_I2C_Py", "mip-test"]
+      ["github:sparkfun/Qwiic_I2C_Py", "latest"]
     ],
     "version": "0.9.1"
 }
