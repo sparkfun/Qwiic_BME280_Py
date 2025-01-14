@@ -44,7 +44,7 @@
 # pylint: disable=line-too-long, bad-whitespace, invalid-name, too-many-public-methods
 #
 
-"""
+"""!
 qwiic_bme280
 ============
 Python module for the qwiic bme280 sensor, which is part of the [SparkFun Qwiic Environmental Combo Breakout](https://www.sparkfun.com/products/14348)
@@ -54,7 +54,6 @@ This python package is a port of the existing [SparkFun BME280 Arduino Library](
 This package can be used in conjunction with the overall [SparkFun qwiic Python Package](https://github.com/sparkfun/Qwiic_Py)
 
 New to qwiic? Take a look at the entire [SparkFun qwiic ecosystem](https://www.sparkfun.com/qwiic).
-
 """
 
 #-----------------------------------------------------------------------------
@@ -92,15 +91,15 @@ _validChipIDs = [0x58, 0x60]
 # from this module.
 
 class QwiicBme280(object):
-    """
+    """!
     QwiicBme280
 
-        :param address: The I2C address to use for the device.
+    @param address: The I2C address to use for the device.
                         If not provided, the default address is used.
-        :param i2c_driver: An existing i2c driver object. If not provided
+    @param i2c_driver: An existing i2c driver object. If not provided
                         a driver object is created.
-        :return: The BME280 device object.
-        :rtype: Object
+
+    @return **Object** The BME280 device object.
     """
     # Constructor
     device_name         =_DEFAULT_NAME
@@ -192,12 +191,10 @@ class QwiicBme280(object):
     # Is an actual board connected to our system?
 
     def is_connected(self):
-        """
-            Determine if a BME280 device is conntected to the system..
+        """!
+        Determine if a BME280 device is conntected to the system..
 
-            :return: True if the device is connected, otherwise False.
-            :rtype: bool
-
+        @return **bool** True if the device is connected, otherwise False.
         """
         return self._i2c.isDeviceConnected(self.address)
 
@@ -208,12 +205,10 @@ class QwiicBme280(object):
     #
     # Initialize the system/validate the board.
     def begin(self):
-        """
-            Initialize the operation of the BME280 module
+        """!
+        Initialize the operation of the BME280 module
 
-            :return: Returns true of the initializtion was successful, otherwise False.
-            :rtype: bool
-
+        @return **bool** Returns true of the initializtion was successful, otherwise False.
         """
         # are we who we need to be?
         chipID = self._i2c.readByte(self.address, self.BME280_CHIP_ID_REG)
@@ -223,11 +218,12 @@ class QwiicBme280(object):
         
 
         def unsigned_short_to_signed_short(n): 
-            """ Converts a 2 byte unsigned short to signed short (uint16_t -> int16_t)
-                
-                :param n: Unsigned short (uint16_t) to convert
-                
-                :returns: Signed short (int16_t)
+            """!
+            Converts a 2 byte unsigned short to signed short (uint16_t -> int16_t)
+
+            @param n: Unsigned short (uint16_t) to convert
+
+            @return **int** Signed short (int16_t)
             """
             assert n >= 0, "Expected number to be unsigned (uint16_t), n>=0"
             assert n <= 2**16 - 1,"Expected number to be short (int16_t), n <= 2^16 - 1"
@@ -235,11 +231,12 @@ class QwiicBme280(object):
             return n - 2**16 if n >= 2**15 else n
 
         def unsigned_char_to_signed_char(n):
-            """  Converts an unsigned char to signed char (uint8_t -> int8_t)
-                
-                :param n: Unsigned char (uint8_t) to convert
-                
-                :returns: Signed char (int8_t)
+            """!
+            Converts an unsigned char to signed char (uint8_t -> int8_t)
+
+            @param n: Unsigned char (uint8_t) to convert
+
+            @return **int** Signed char (int8_t)
             """
             assert n >= 0, "Expected number to be unsigned (uint8_t), n>=0"
             assert n <= 2**8 - 1,"Expected number to be char (int8_t), n <= 2^8 - 1"
@@ -291,14 +288,13 @@ class QwiicBme280(object):
     # Mode of the sensor
 
     def set_mode(self, mode):
-        """
-            Set the operational mode of the sensor.
+        """!
+        Set the operational mode of the sensor.
 
-            :param mode: One of the class constant values.
+        @param mode: One of the class constant values.
                     MODE_SLEEP, MODE_FORCED, MODE_NORMAL
 
-            :return: No return value
-
+        @return No return value
         """
         if mode > 0b11:
             mode = 0  # Error check. Default to sleep mode
@@ -310,12 +306,10 @@ class QwiicBme280(object):
 
 
     def get_mode(self):
-        """
-            Returns the operational mode of the sensor.
+        """!
+        Returns the operational mode of the sensor.
 
-            :return: The current operational mode
-            :rtype: MODE_SLEEP, MODE_FORCED, or MODE_NORMAL
-
+        @return **MODE_SLEEP, MODE_FORCED, or MODE_NORMAL** The current operational mode
         """
         controlData = self._i2c.readByte(self.address, self.BME280_CTRL_MEAS_REG)
         return controlData & 0b00000011
@@ -335,10 +329,10 @@ class QwiicBme280(object):
     #   6, 10ms
     #   7, 20ms
     def set_standby_time(self, timeSetting):
-        """
+        """!
         Set the standby bits in the BME280s config register
 
-        :param timeSetting: The standby time bits - acceptable values
+        @param timeSetting: The standby time bits - acceptable values
                         0 = 0.5ms
                         1 = 62.5ms
                         2 = 125ms
@@ -348,8 +342,7 @@ class QwiicBme280(object):
                         6 = 10ms
                         7 = 20ms
 
-        :return: No return value
-
+        @return No return value
         """
 
         if timeSetting > 0b111 :
@@ -373,18 +366,17 @@ class QwiicBme280(object):
     #   3, coefficients = 8
     #   4, coefficients = 16
     def set_filter(self, filterSetting):
-        """
+        """!
         Set the filter bits in the BME280s config register
 
-        :param filterSetting: The filter bits for the BME280. Acceptable values
+        @param filterSetting: The filter bits for the BME280. Acceptable values
                         0 = filter off
                         1 = coefficients = 2
                         2 = coefficients = 4
                         3 = coefficients = 8
                         4 = coefficients = 16
 
-        :return: No return value
-
+        @return No return value
         """
         if filterSetting > 0b111 :
             filterSetting = 0 # Error check. Default to filter off
@@ -402,14 +394,14 @@ class QwiicBme280(object):
     # 0 turns off temp sensing
     # 1 to 16 are valid over sampling values
     def set_tempature_oversample(self, overSampleAmount):
-        """
+        """!
         Set the temperature oversample value
 
-        :param overSampleAmount: The temperature oversample value. Acceptable values
+        @param overSampleAmount: The temperature oversample value. Acceptable values
                 0 = turns off temp sensing
                 1 to 16 are valid over sampling values
 
-        :return: No return value
+        @return No return value
         """
         overSampleAmount = self.check_sample_value(overSampleAmount) # Error check
 
@@ -432,14 +424,14 @@ class QwiicBme280(object):
     # 0 turns off pressure sensing
     # 1 to 16 are valid over sampling values
     def set_pressure_oversample(self, overSampleAmount):
-        """
+        """!
         Set the pressure oversample value
 
-        :param overSampleAmount: The pressure oversample value. Acceptable values
+        @param overSampleAmount: The pressure oversample value. Acceptable values
                 0 = turns off pressure sensing
                 1 to 16 are valid over sampling values
 
-        :return: No return value
+        @return No return value
         """
         overSampleAmount = self.check_sample_value(overSampleAmount) # Error check
 
@@ -463,14 +455,14 @@ class QwiicBme280(object):
     # 0 turns off humidity sensing
     # 1 to 16 are valid over sampling values
     def set_humidity_oversample(self, overSampleAmount):
-        """
+        """!
         Set the humidity oversample value
 
-        :param overSampleAmount: The humidity oversample value. Acceptable values
+        @param overSampleAmount: The humidity oversample value. Acceptable values
                 0 = turns off humidity sensing
                 1 to 16 are valid over sampling values
 
-        :return: No return value
+        @return No return value
         """
         overSampleAmount = self.check_sample_value(overSampleAmount) # Error check
 
@@ -496,15 +488,14 @@ class QwiicBme280(object):
     #
     # pylint: disable=no-self-use
     def check_sample_value(self, userValue):
-        """
+        """!
         Validates an over sample value
 
-        :param userValue: The oversample value to check.
+        @param userValue: The oversample value to check.
                 Allowed values are 0 to 16
                 These are used in the humidty, pressure, and temp oversample functions
 
-        :return: Valid oversample value
-        :rtype: int
+        @return **int** Valid oversample value
         """
         _valueMap = { 0: 0, 1: 1, 2: 2, 4: 3, 8: 4, 16: 5}
 
@@ -513,10 +504,10 @@ class QwiicBme280(object):
     # pylint: enable=no-self-use
     # Check the measuring bit and return true while device is taking measurement
     def is_measuring(self):
-        """
+        """!
         Return if the sensor is measuring or not
 
-        :return: True if the sensor is measuring, else False
+        @return True if the sensor is measuring, else False
         :rvalue: boolean
         """
 
@@ -526,10 +517,9 @@ class QwiicBme280(object):
 
     # Strictly resets.  Run .begin() afterwards
     def reset( self ):
-        """
+        """!
         Resets the sensor. If called, the begin method must be called before
         using the sensor.
-
         """
         self._i2c.writeByte(self.address, self.BME280_RST_REG, 0xB6)
 
@@ -539,12 +529,10 @@ class QwiicBme280(object):
     #
     # ****************************************************************************#
     def read_pressure( self ):
-        """
+        """!
         Returns pressure in Pa.
 
-        :return: Pressure in Pa
-        :rtype: float
-
+        @return **float** Pressure in Pa
         """
 
         # Read temperature to update t_fine
@@ -577,22 +565,21 @@ class QwiicBme280(object):
     #----------------------------------------------------------------
     # Sets the internal variable _referencePressure so the
     def set_reference_pressure(self, refPressure):
-        """
+        """!
         Sets the referance pressure for the sensor measurments.
 
-        :param refPressure: The referance pressure to use.
+        @param refPressure: The referance pressure to use.
 
-        :return: No return value
+        @return No return value
         """
         self._referencePressure = float(refPressure)
 
     # Return the local reference pressure
     def get_reference_pressure(self):
-        """
+        """!
         Get the current reference pressure for the sensor.
 
-        :return: The current reference pressure.
-        :rtype: float
+        @return **float** The current reference pressure.
         """
         return self._referencePressure
 
@@ -600,11 +587,10 @@ class QwiicBme280(object):
 
     #----------------------------------------------------------------
     def get_altitude_meters( self ):
-        """
+        """!
         Return the current Altitude in meters
 
-        :return: The current altitude in meters
-        :rtype: float
+        @return **float** The current altitude in meters
         """
 
         return (-44330.77)*(math.pow((self.pressure/self._referencePressure), 0.190263) - 1.0) # Corrected, see issue 30
@@ -613,11 +599,10 @@ class QwiicBme280(object):
 
     #----------------------------------------------------------------
     def get_altitude_feet( self ):
-        """
+        """!
         Return the current Altitude in feet
 
-        :return: The current altitude in feets
-        :rtype: float
+        @return **float** The current altitude in feets
         """
         return self.get_altitude_meters() * 3.28084
 
@@ -630,11 +615,10 @@ class QwiicBme280(object):
     #
     # ****************************************************************************#
     def read_humidity( self ):
-        """
+        """!
         Returns humidity in %RH.
 
-        :return: The current humidity value
-        :rtype: float
+        @return **float** The current humidity value
         """
 
         # Read temperature to update t_fine
@@ -663,12 +647,11 @@ class QwiicBme280(object):
     # ****************************************************************************#
 
     def get_temperature_celsius( self ):
-        """
+        """!
         Returns temperature in DegC and updates t_fine (needed for accurate
         pressure and humidity measurements)
 
-        :return: The current temperature in C.
-        :rtype: float
+        @return **float** The current temperature in C.
         """
 
         # get the reading (adc_T);
@@ -690,12 +673,11 @@ class QwiicBme280(object):
 
     #----------------------------------------------------------------
     def get_temperature_fahrenheit( self ):
-        """
+        """!
         Returns temperature in Deg F and updates t_fine (needed for accurate
         pressure and humidity measurements)
 
-        :return: The current temperature in F.
-        :rtype: float
+        @return **float** The current temperature in F.
         """
         output = self.temperature_celsius
         return (output * 9) / 5 + 32
@@ -710,11 +692,10 @@ class QwiicBme280(object):
     #  Returns Dew point in DegC
 
     def get_dewpoint_celsius(self):
-        """
+        """!
         Returns the Dew point in degrees C.
 
-        :return: The current dewpoint in C.
-        :rtype: float
+        @return **float** The current dewpoint in C.
         """
         celsius = self.get_temperature_celsius()
         humidity = self.read_humidity()
@@ -737,11 +718,10 @@ class QwiicBme280(object):
     #----------------------------------------------------------------
     #  Returns Dew point in DegF
     def get_dewpoint_fahrenheit(self):
-        """
+        """!
         Returns the Dew point in degrees F.
 
-        :return: The current dewpoint in F.
-        :rtype: float
+        @return **float** The current dewpoint in F.
         """
         return self.get_dewpoint_celsius() * 1.8 + 32 # Convert C to F
 
